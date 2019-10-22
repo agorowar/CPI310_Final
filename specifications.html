@@ -4,35 +4,67 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Specifications</title>
+        <link rel ="stylesheet" href ="styles.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">Paw Me Maybe</a>
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                  
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="plan.html">Project Plan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="team.html">Our Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="specifications.html">Specifications</a>
+                    </li>
+                    </ul>
+                </div>
+        </nav>
+        <div id="wrapper">
         <h1>Specifications</h1>
         <br>
         <h3><i>Purpose of Project</i></h3>
-        <p>Socializing your animal-- for it's own enrichment-- can be a difficult task. Animals living by themselves in a house with humans can be lonely, pent up, and full of energy. This applies to cats, dogs, and a whole cadre of other social animals. Our solution is simple: a 'dating app' for pets, that allows pet owners to connect themselves with other pet owners based on their pets personality, breed, and temperment. Many of the pet owners in our group have encountered this problem with our own pets, and understand the struggles of responsible pet raising. On top of the 'swipe' function for playdates, we 
-            understand the difficulties of suddenly having an animal sprung onto you-- Paw Me Maybe will have a chat function, and allow people trying to <i>adopt out</i> an animal easily match with a person capable of taking care of it. <i>Paw Me Maybe</i> is the solution we need!  </p>
+        <p>Providing your animal with adequate enrichment can be a monumental task. Social animals in single pet households can find themselves pent up, lonely, and full of energy. Our solution is simple: a 'dating app' for pets, allowing pet owners to connect themselves with other pet owners based on their pets personality, breed, and temperment. Many of the pet owners in our group have encountered this problem with our own pets, and understand the struggles of responsible pet raising. On top of the 'swipe' function for playdates, we 
+            also understand the difficulties of suddenly having an animal sprung onto you-- Paw Me Maybe will also supply pet owners with 'profiles', and allow people trying to <i>adopt out</i> an animal easily match with a responsible owner trying to <i>adopt in.</i> <i>Paw Me Maybe</i> is the solution we need for the problems of today!  </p>
 
         <h3><i>List of  Deliverables</i></h3>
         <ol>
-            <li>Mockup of UI design.</li>
-            <li>Wireframe of UI.</li>
-            <li>Pseudo-code for the backend.</li>
-            <li>Functional front-end.</li>
-            <li>Implementation of the 'match' algorithm.</li>
-            <li>Implementation of the 'chat' function.</li>
-            <li>Integration of the back-end and the front-end.</li>
+            <li>Website and pitch.</li>
+            <li>UI Design.</li>
+            <li>UI Wireframe.</li>
+            <li>Pet profile pages.</li>
+            <li>Owner profile pages.</li>
+            <li>'Match' algorithm.</li>
+            <li>Functional 'match' algorithm.</li>
+            <li>Prototype.</li>
+            <li>User Database.</li>
+            <li>Adoption splash page.</li>
+            <li>Integrated back-end and front-end.</li>
         </ol>
 
         <h3><i>User Case Analysis</i></h3>
         <ul>
             <li>A pet owner creates an account on Paw Me Maybe, inputting their personal information and creating a Pet Owner profile. They click the 'new pet' button, which creates a new pet profile. They input the breed (Boston Terrier), and choose relevant personality and breed tags, uploading a picture and a small pet profile. They and their pet have been entered into the system.</li>
             <li>The owner of a Bernese Shepard is looking for another large dog for their pet to play with. They open the application, and set their preferences-- a large dog, with a calm personality, and low energy. They begin to swipe through other pets until they settle on another Bernese Shepard, suggested to the pet owner based on their preferences. They swipe right, and begin a chat with the other Pet owner.</li>
-            <li>A user who has recently come into the posesssion of a litter of Kittens opens their own profile, clicking the 'adopt out' button, and set the preference tags: they're looking for somebody who is looking for a kitten, with no preference as to breed. They swipe through other users, before settling on one. They swipe right, and begin a chat with the owner.</li>
-            <li>A user is looking to adopt another cat. They open their profile, and select the 'adopt' button. They set the preference tags: a cat, older, spayed. They swipe through user profiles until they find the one they like the best (an elderly cat with no notable health issues) and swipe right on the User Profile, oppening a chat.</li>
+            <li>A user who has recently come into the posesssion of a litter of Kittens opens their own profile, clicking the 'adopt out' button, and creates an 'ad blurb' for their adoptable cat: a kitten of unknown breed, spayed, with all of it's shots. This is posted onto the adoptables page. Shortly after, they recieve a notification on their profile splash page: somebody interested in the cat has sent them a message.</li>
+            <li>A user is looking to adopt another cat. They open the 'Adoption' splash page and scroll through the available animals, settling on a cat of unknown breed that is spayed, with all of it's vaccinations. Selecting the ad blurb, they are given the option to open a chat with the current owner of the animal.</li>
         </ul>
         <h3><i>Database Design</i></h3>
         <p>The Database is going to be created using MySQL, with seperate charts for <i>Users</i> and <i>Pets</i>. Each chart object will be relevantly tagged with sub-charts as neccesary.</p>
+    </div>
     </body>
 
 </html>
