@@ -67,3 +67,13 @@ h2{
 #desc{
     text-align: center;
 }
+
+#dogcat{
+    width: 50%;
+    height: 50%;
+}
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
