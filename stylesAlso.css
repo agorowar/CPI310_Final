@@ -1,0 +1,58 @@
+body{
+    background-color:white;
+    font-family: "Helvetica";
+    text-align: center;
+}
+
+header
+{
+    background-color:#3B5D5B;
+    margin-top: auto;
+}
+
+section
+{
+    text-align: center;
+    margin: auto;
+    padding-left: 500px;
+    padding-right: 500px;
+}
+
+ul
+{
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+li
+{
+    display: inline-block;
+    padding: 10px;
+}
+
+a
+{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+h1
+{
+    color: #3B5D5B
+}
+
+h2
+{
+    color: #63A779;
+}
+
+p
+{
+    color: black;
+}
