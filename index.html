@@ -3,17 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel ="stylesheet" href ="style.css"> 
+    <link rel ="stylesheet" href ="styles.css" type="text/css"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>Welcome Page</title>
 </head>
 <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="welcome.html">Paw Me Maybe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="" tabindex="-1" aria-disabled="true">Project Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="" tabindex="-1" aria-disabled="true">Our Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="" tabindex="-1" aria-disabled="true">Specifications</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    
     <h1 id= welcomeTxt >Paw Me Maybe</h1>
     <h2 style = "text-align: center;"> You and your pet's favorite social media!</h2>
-    <img class = image src= id="koda" "Koda.jpg"style = "float:left">
-    <img class = image id="moonlight" src= "Moonlight.jpg" style = "float:right">
-    <h1 style="text-align: center;"> Matched! </h1>
+    <h1 id="matched" >Matched!</h1>
+    <img class = image  id="koda" src="Koda.jpg">
+    <img class = image id="moonlight" src= "Moonlight.jpg">
     <br> <br>
-    <p style = "text-align: center; "> Paw Me Maybe is working hard helping you find fur-ever friends for you and your best 4-legged companion! Our wonderful staff are dedicated to making our site the best it can be. </p>
+    <p id="desc"> Paw Me Maybe is working hard helping you find fur-ever friends for you and your best 4-legged companion! Our wonderful staff are dedicated to making our site the best it can be. </p>
+    <p id="credits">Created by: Raven Johnson, Mary Gibson, Josh Knoll, Brittany Adamo, Ajai Gorowara</p>
 
 </body>
 

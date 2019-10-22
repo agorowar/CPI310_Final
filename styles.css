@@ -1,3 +1,11 @@
+/* color scheme
+#3B5D5B dark green
+#63A779 light green
+#E5C66F yellow
+#E08130 orange
+#DD684C salmon */
+
+
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -7,9 +15,12 @@ body{
     text-align: center;
     font-size: 50px;
 }
+
+
+
 .image {
-   max-width: 30%;
-   height: 30%;
+   max-width: 20%;
+   height: auto;
 
 }
 
@@ -18,10 +29,35 @@ body{
 }
 
 #moonlight{
-    float:left;
+    float:right;
 }
 
 h1{
     text-align: center;
     font-size: 50px;
+    color: #DD684C;
+}
+
+#matched{
+    text-align: right;
+    font-size: 35px;
+    position: relative;
+    right: 220px;
+}
+
+h2{
+    font-size: 42px;
+    color: #3B5D5B;
+    text-align: center;
+}
+
+#credits{
+    position: absolute;
+    top: 700px;
+    color: gray;
+    font-size: 15px;
+}
+
+#desc{
+    text-align: center;
 }
