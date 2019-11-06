@@ -3,6 +3,8 @@ const express = require("express");
 exphbs = require("express-handlebars");
 const sqlite = require('sqlite');
 const bcrypt = require('bcrypt');
+const cookieParser = require("cookie-parser");
+const uuidv4 = require("uuid/v4");
 
 const saltRounds = 10;
 const app = express();
@@ -10,17 +12,39 @@ const app = express();
 //call database
 const dbPromise = sqlite.open("./data.sqlite");
 
-//setup handlebars
+//setup handlebars and packages
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 //render index page
 app.get("/", async (req, res)=>{
     const db = await dbPromise;
-    const users = await db.all("SELECT * FROM users");
-    console.log(users);
+    console.log(req.cookies);
     res.render("index");
+});
+
+app.get("/login", (req,res)=>{
+    res.render("login");
+});
+
+app.post("/login",async (req,res)=>{
+    const db = await dbPromise;
+    const { email, password} = req.body;
+    const user = await db.get("SELECT * FROM users WHERE email=?", email);
+    if(!user){
+        return res.render("login", { error: "user not found" });
+    }
+    const matches = await bcrypt.compare(password, user.password);
+    if(!matches){
+        return res.render("login", { error: "password is incorrect"})
+    }
+    //res.cookie("userEmail", user.email);
+    const token = uuidv4();
+    await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
+    res.cookie("authToken", token);
+    res.redirect("/");
 });
 
 //render register page
