@@ -18,11 +18,33 @@ app.set("view engine", "handlebars");
 app.use(express.urlencoded());
 app.use(cookieParser());
 
+//Create middleware to view users
+const authorize = async (req,res,next)=>{
+    const db = await dbPromise;
+    const token = req.cookies.authToken;
+    console.log("token from authorize: ", token)
+    if(!token){
+        return next();
+    }
+
+    const authToken = await db.get("SELECT * FROM authToken WHERE token=?", token)
+    console.log("authToken from authorize ", authToken)
+    if(!authToken){
+        return next();
+    }
+
+    const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId)
+    console.log("user from authorize ", user);
+    req.user = user;
+    next();
+};
+
+app.use(authorize);
+
 //render index page
 app.get("/", async (req, res)=>{
     const db = await dbPromise;
-    console.log(req.cookies);
-    res.render("index");
+    res.render("index", {user: req.user });
 });
 
 app.get("/login", (req,res)=>{
@@ -40,7 +62,6 @@ app.post("/login",async (req,res)=>{
     if(!matches){
         return res.render("login", { error: "password is incorrect"})
     }
-    //res.cookie("userEmail", user.email);
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
     res.cookie("authToken", token);
@@ -83,6 +104,10 @@ app.post("/register", async (req,res)=>{
         email,
         pwHash
     );
+    const user = await db.get("SELECT name,id FROM users WHERE email=?", email);
+    const token = uuidv4();
+    await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
+    res.cookie("authToken", token);
     res.redirect("/");
 });
 
