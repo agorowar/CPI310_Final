@@ -47,6 +47,17 @@ app.get("/", async (req, res)=>{
     res.render("index", {user: req.user });
 });
 
+//logout functionality
+app.post("/", async(req,res)=>{
+    const db =await dbPromise;
+    const token = req.cookies.authToken;
+    const authToken = await db.get("SELECT * FROM authToken WHERE token=?", token)
+    const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId)
+    req.user = user;
+    await db.run("DELETE FROM authToken WHERE token=?", token)
+    return res.render("index", {error: "user logged out"});
+});
+
 app.get("/login", (req,res)=>{
     res.render("login");
 });
