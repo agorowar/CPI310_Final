@@ -1,57 +1,57 @@
-.left
+.leftColumn
 {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: lightgray;
+    background-color: #E5C66F;
     float: left;
 }
 
-.middle
+.middleColumn
 {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: lightgray;
+    background-color: #E5C66F;
     float: left;
     margin-left: 10px; 
 }
 
-.right
+.rightColumn
 {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: lightgray;
+    background-color: #E5C66F;
     float: left;
     margin-left: 10px;
 }
 
-.top
+.topButton
 {
-    margin-bottom: 100px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-bottom: 0px;
+    padding: 15px;
 }
 
-.bottom
+.bottomButton
 {
-    margin-top: 100px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-top: 0px;
+    padding: 15px;
 }
 
-.center
+.matchingContainer
 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #3B5D5B;
+    height: 320px;
+    width: 790px;
+    padding: 10px;
+    margin: 70 auto;
 }
 
 .rotate
