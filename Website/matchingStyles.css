@@ -33,6 +33,20 @@
     margin-left: 10px;
 }
 
+.top
+{
+    margin-bottom: 100px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.bottom
+{
+    margin-top: 100px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
 .center
 {
     display: flex;
