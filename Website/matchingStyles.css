@@ -1,0 +1,46 @@
+.left
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 250px;
+    background-color: lightgray;
+    float: left;
+}
+
+.middle
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 250px;
+    background-color: lightgray;
+    float: left;
+    margin-left: 10px; 
+}
+
+.right
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 250px;
+    background-color: lightgray;
+    float: left;
+    margin-left: 10px;
+}
+
+.center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rotate
+{
+    transform:rotate(180deg);
+}
