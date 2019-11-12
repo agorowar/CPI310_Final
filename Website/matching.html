@@ -12,28 +12,53 @@
         </head>
 
         <body>
-        <div class = "matchingContainer">
-            <div class = "leftColumn">
+
+            <!-- add navbar to the top of the body -->
+            <nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779;">
+                <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
+             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+            <!-- <span class="navbar-toggler-icon"></span> -->
+      
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile">Your Profile</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="petProfile">Your Pets</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="matching">Match with Pets</a> 
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class = "matchingContainer">
+                <div class = "leftColumn">
                     <!---Javascript: Pull currently viewed pet's main profile picture.-->
                     <img src = "testImage.jpg" alt = "doggo" height = "300" width = "250">
-            </div>
+                </div>
                 
-            <div class = "middleColumn">
-                <!---Javascript: Pull currently viewed pet's information/description.-->
-                <p>This is the pet's description.</p>
-            </div>
+                <div class = "middleColumn">
+                    <!---Javascript: Pull currently viewed pet's information/description.-->
+                    <p>This is the pet's description.</p>
+                </div>
                             
-            <div class = "rightColumn">
-                <div class = "topButton">
+                <div class = "rightColumn">
+                    <div class = "topButton">
                         <!--Javascript: If clicked, saves profile to liked list then moves to next profile.-->
                         <input type ="image" src = "logos/greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
-                </div>
+                    </div>
 
-                <div class = "bottomButton">
+                    <div class = "bottomButton">
                         <!--Javascript: If clicked, moves to next profile.-->
                         <input type ="image" src = "logos/redAsset 1@3x.PNG" alt = "button" width = "48" height = "48" class="rotate">
+                    </div>
                 </div>
             </div>
-        </div>
         </body>
     </html>
