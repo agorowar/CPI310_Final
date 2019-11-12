@@ -12,7 +12,8 @@
     background-color: #F2A74B;
     text-align: center;
   }
-  li{
+
+  li {
     list-style: none;
   }
 
@@ -38,11 +39,39 @@
     border-radius: 4em;
   }
 
+  #container {
+    background-color: rgb(232, 122, 85);
+    padding: 2em;
+    border-radius: 5px;
+  }
+
   #logo {
     width: 100px;
     padding-bottom: 2em;
   }
+
+  .container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+  }
+
+  #dog1 {
+    display: inline-block;
+    width: 100%;
+  }
+
+  #logo {
+    float: center;
+  }
+
+  #dog2 {
+    display: inline-block;
+    width: 100%;
+  }
 </style>
+
+
 {{#if user}}
 <!-- add bootstrap, css and fonts to head -->
 <link rel="stylesheet" href="styles.css" type="text/css">
@@ -92,23 +121,30 @@
   </form>
 </div>
 {{else}}
-<h1><i>Paw Me Maybe</i></h1>
-<p>
-  Paw Me Maybe is a social media site for pet owners. Here, you can connect with nearby pet
-  owners, explore our 'adopt' messageboard, and find the best <i>match</i> for the special pet in your life!
-  <ul>
-    <li><b>*</b> Create your own <b>Pet Profile!</b></li>
-    <li><b>*</b> Upload images of your pet!</li>
-    <li><b>*</b> View maps that display locations of potential adoptions!</li>
-    <li><b>*</b> Match and chat with other nearby users to set up playdates!</li>
-    <li><b>*</b> Match pets with potential pet owners to set up adoption!</li>
-    <li><b>*</b> View maps that display dog parks within the user’s location!</li>
-  </ul>
-</p>
-<div id="block">
-  <img src="blackAsset2@3x.png" id="logo" />
-  <br>
-  <a href="register">register</a>
-  <a href="login">login</a>
+<div id="container">
+  <h1><i>Paw Me Maybe</i></h1>
+  <p>
+    Paw Me Maybe is a social media site for pet owners. Here, you can connect with nearby pet
+    owners, explore our 'adopt' messageboard, and find the best <i>match</i> for the special pet in your life!
+    <ul>
+      <li><b>*</b> Create your own <b>Pet Profile!</b></li>
+      <li><b>*</b> Upload images of your pet!</li>
+      <li><b>*</b> View maps that display locations of potential adoptions!</li>
+      <li><b>*</b> Match and chat with other nearby users to set up playdates!</li>
+      <li><b>*</b> Match pets with potential pet owners to set up adoption!</li>
+      <li><b>*</b> View maps that display dog parks within the user’s location!</li>
+    </ul>
+  </p>
+
+
+  <div id="block">
+    <img src="blackAsset2@3x.png" id="logo" />
+    <br>
+    <a href="register">register</a>
+    <a href="login">login</a>
+  </div>
 </div>
+<footer>
+  <i> <small>&copy; Copyright 2019, PET4PET INC</small></i>
+</footer>
 {{/if}}

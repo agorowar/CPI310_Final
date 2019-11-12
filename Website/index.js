@@ -122,6 +122,11 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
+//render pet profile
+app.get("/petProfile", (req,res)=>{
+    res.render("petProfile");
+});
+
 //Setups database what port is being listened on
 const setup = async() => {
     const db = await dbPromise;
