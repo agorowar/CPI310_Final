@@ -1,49 +1,114 @@
 <style>
-  
+  * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  }
+
+  h1 {
+    font-family: 'Consolas';
+  }
+
+  body {
+    background-color: #F2A74B;
+    text-align: center;
+  }
+  li{
+    list-style: none;
+  }
+
+  #CONTENT {
+    background-color: #F2A74B;
+    height: 92vh;
+  }
+
+  #block {
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em;
+    padding-top: 5%;
+  }
+
+  #block a {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #455758;
+    background-color: #455758;
+    color: white;
+    text-decoration: none;
+    border-radius: 4em;
+  }
+
+  #logo {
+    width: 100px;
+    padding-bottom: 2em;
+  }
 </style>
-<h1>Home</h1>
 {{#if user}}
-  <!-- add bootstrap, css and fonts to head -->
-<link rel ="stylesheet" href ="styles.css" type="text/css">
+<!-- add bootstrap, css and fonts to head -->
+<link rel="stylesheet" href="styles.css" type="text/css">
 
 <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous">
 
 
 <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 
 <!-- add navbar to the top of the body -->
-<nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779;">
-    <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-    
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="profile">Your Profile</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="petProfile">Your Pets</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="matching">Match with Pets</a> 
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- end of nav -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #63A779;">
+  <a class="navbar-brand" href="/">Paw Me Maybe</a>
+  <!--title on the navbar that also functions as a link to the homepage -->
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
 
-<h2>
-    {{user.name}}
-</h2>
-<form action="/" method="POST">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile">Your Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="petProfile">Your Pets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="matching">Match with Pets</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- end of nav -->
+<div id="CONTENT">
+  <h2>
+    Welcome back, {{user.name}}!
+  </h2>
+  <br>
+  <p>
+    <i>What do you want to do today...?</i>
+  </p>
+  <form action="/" method="POST">
     <button>logout</button>
-</form>
+  </form>
+</div>
 {{else}}
-<a href="register">register</a>
-<a href="login">login</a>
+<h1><i>Paw Me Maybe</i></h1>
+<p>
+  Paw Me Maybe is a social media site for pet owners. Here, you can connect with nearby pet
+  owners, explore our 'adopt' messageboard, and find the best <i>match</i> for the special pet in your life!
+  <ul>
+    <li><b>*</b> Create your own <b>Pet Profile!</b></li>
+    <li><b>*</b> Upload images of your pet!</li>
+    <li><b>*</b> View maps that display locations of potential adoptions!</li>
+    <li><b>*</b> Match and chat with other nearby users to set up playdates!</li>
+    <li><b>*</b> Match pets with potential pet owners to set up adoption!</li>
+    <li><b>*</b> View maps that display dog parks within the user’s location!</li>
+  </ul>
+</p>
+<div id="block">
+  <img src="blackAsset2@3x.png" id="logo" />
+  <br>
+  <a href="register">register</a>
+  <a href="login">login</a>
+</div>
 {{/if}}

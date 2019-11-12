@@ -19,17 +19,17 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //Create middleware to view users
-const authorize = async (req,res,next)=>{
+const authorize = async(req, res, next) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     console.log("token from authorize: ", token)
-    if(!token){
+    if (!token) {
         return next();
     }
 
     const authToken = await db.get("SELECT * FROM authToken WHERE token=?", token)
     console.log("authToken from authorize ", authToken)
-    if(!authToken){
+    if (!authToken) {
         return next();
     }
 
@@ -41,34 +41,37 @@ const authorize = async (req,res,next)=>{
 
 app.use(authorize);
 
+// images
+app.use(express.static('logos'));
+
 //render index page
-app.get("/", async (req, res)=>{
+app.get("/", async(req, res) => {
     const db = await dbPromise;
-    res.render("index", {user: req.user });
+    res.render("index", { user: req.user });
 });
 
 //logout functionality
-app.post("/", async(req,res)=>{
-    const db =await dbPromise;
+app.post("/", async(req, res) => {
+    const db = await dbPromise;
     const token = req.cookies.authToken;
     await db.run("DELETE FROM authToken WHERE token=?", token)
-    return res.render("index", {error: "user logged out"});
+    return res.render("index", { error: "user logged out" });
 });
 
-app.get("/login", (req,res)=>{
+app.get("/login", (req, res) => {
     res.render("login");
 });
 
-app.post("/login",async (req,res)=>{
+app.post("/login", async(req, res) => {
     const db = await dbPromise;
-    const { email, password} = req.body;
+    const { email, password } = req.body;
     const user = await db.get("SELECT * FROM users WHERE email=?", email);
-    if(!user){
+    if (!user) {
         return res.render("login", { error: "user not found" });
     }
     const matches = await bcrypt.compare(password, user.password);
-    if(!matches){
-        return res.render("login", { error: "password is incorrect"})
+    if (!matches) {
+        return res.render("login", { error: "password is incorrect" })
     }
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
@@ -77,33 +80,33 @@ app.post("/login",async (req,res)=>{
 });
 
 //render register page
-app.get("/register", (req,res)=>{
+app.get("/register", (req, res) => {
     res.render("register");
 })
 
 //check register information
-app.post("/register", async (req,res)=>{
+app.post("/register", async(req, res) => {
     const db = await dbPromise;
-    const { name, email, password} = req.body;
+    const { name, email, password } = req.body;
     let error = null;
-    if(!name){
+    if (!name) {
         error = "name field is required"
     }
-    if(!email){
+    if (!email) {
         error = "email field is required"
     }
-    if(!password){
+    if (!password) {
         error = "password field is required"
     }
-    if(error){
+    if (error) {
         return res.render("register", { error: error })
     }
     const existingUser = await db.get(
         "SELECT email FROM users WHERE email=?",
-        email    
+        email
     );
-    if(existingUser){
-        return res.render("register", {error: "user already exists" });
+    if (existingUser) {
+        return res.render("register", { error: "user already exists" });
     }
     const pwHash = await bcrypt.hash(password, saltRounds);
     await db.run(
@@ -120,11 +123,11 @@ app.post("/register", async (req,res)=>{
 });
 
 //Setups database what port is being listened on
-const setup = async () =>{
+const setup = async() => {
     const db = await dbPromise;
 
     //Resets database after every run, comment out to save data in database
-    db.migrate({force: "last"});
+    db.migrate({ force: "last" });
     app.listen(8080, () => console.log("listening on http://localhost:8080"));
 };
 
