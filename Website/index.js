@@ -127,6 +127,10 @@ app.get("/petProfile", (req,res)=>{
     res.render("petProfile");
 });
 
+app.get("/owner_profile", (req,res)=>{
+    res.render("owner_profile");
+});
+
 //Setups database what port is being listened on
 const setup = async() => {
     const db = await dbPromise;
