@@ -127,8 +127,8 @@ app.get("/petProfile", (req,res)=>{
     res.render("petProfile");
 });
 
-app.get("/owner_profile", (req,res)=>{
-    res.render("owner_profile");
+app.get("/matching", (req,res)=>{
+    res.render("matching");
 });
 
 //Setups database what port is being listened on
