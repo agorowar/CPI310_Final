@@ -122,6 +122,10 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
+app.get("/profile", (req,res)=>{
+    res.render("profile");
+});
+
 //render pet profile
 app.get("/petProfile", (req,res)=>{
     res.render("petProfile");
