@@ -46,20 +46,30 @@ app.use(express.static('logos'));
 
 //render index page
 app.get("/", async(req, res) => {
-    const db = await dbPromise;
     res.render("index", { user: req.user });
 });
 
 //logout functionality
-app.post("/", async(req, res) => {
+app.get("/logout", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     await db.run("DELETE FROM authToken WHERE token=?", token)
-    return res.render("index", { error: "user logged out" });
+    res.redirect("/login?from=logout")
 });
 
 app.get("/login", (req, res) => {
-    res.render("login");
+    const from = req.query.from;
+    let error = null;
+    if (from === 'logout') {
+        error = 'user logged out'
+    }else if(from === 'profile'){
+        error = 'please login to view page'
+    }else if(from === 'petProfile'){
+        error = 'please login to view page'
+    }else if(from === 'matching'){
+        error === 'please login to view page'
+    }
+    res.render("login", { error });
 });
 
 app.post("/login", async(req, res) => {
@@ -122,17 +132,35 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
-app.get("/profile", (req,res)=>{
-    res.render("profile");
+app.get("/profile", async(req,res)=>{
+    const token = req.cookies.authToken;
+    if(!token)
+    {
+        res.redirect("/login?from=profile")
+    } else{
+        res.render("profile");
+    }
 });
 
 //render pet profile
 app.get("/petProfile", (req,res)=>{
-    res.render("petProfile");
+    const token = req.cookies.authToken;
+    if(!token)
+    {
+        res.redirect("/login?from=petProfile")
+    } else{
+        res.render("petProfile");
+    }
 });
 
 app.get("/matching", (req,res)=>{
-    res.render("matching");
+    const token = req.cookies.authToken;
+    if(!token)
+    {
+        res.redirect("/login?from=matching")
+    } else{
+        res.render("matching");
+    }
 });
 
 //Setups database what port is being listened on
