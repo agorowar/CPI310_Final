@@ -1,14 +1,6 @@
 <style>
-  * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-  }
-
-  h1 {
-    font-family: 'Consolas';
-  }
-
-  body {
+  
+  #index_page body {
     background-color: #F2A74B;
     text-align: center;
   }
@@ -70,7 +62,7 @@
     width: 100%;
   }
 </style>
-
+<div id = "index_page" >
 {{#if user}}
 <!-- add bootstrap, css and fonts to head -->
 <link rel="stylesheet" href="styles.css" type="text/css">
@@ -146,4 +138,5 @@
 <footer>
   <i> <small>&copy; Copyright 2019, PET4PET INC</small></i>
 </footer>
+</div>
 {{/if}}
