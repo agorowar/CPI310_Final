@@ -43,6 +43,7 @@ app.use(authorize);
 
 // images
 app.use(express.static('logos'));
+app.use(express.static('style.css'));
 
 //render index page
 app.get("/", async(req, res) => {
