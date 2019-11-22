@@ -4,7 +4,9 @@ CREATE TABLE users
     id INTEGER PRIMARY KEY,
     email STRING,
     name STRING,
-    password STRING
+    password STRING,
+    location STRING,
+    bio STRING
 );
 CREATE TABLE authToken(
     token STRING PRIMARY KEY,
