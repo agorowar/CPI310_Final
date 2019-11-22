@@ -42,7 +42,7 @@ const authorize = async(req, res, next) => {
 app.use(authorize);
 
 // images
-app.use(express.static('logos'));
+app.use(express.static(__dirname + '/logos/'));
 
 //render index page
 app.get("/", async(req, res) => {
@@ -62,11 +62,11 @@ app.get("/login", (req, res) => {
     let error = null;
     if (from === 'logout') {
         error = 'user logged out'
-    }else if(from === 'profile'){
+    } else if (from === 'profile') {
         error = 'please login to view page'
-    }else if(from === 'petProfile'){
+    } else if (from === 'petProfile') {
         error = 'please login to view page'
-    }else if(from === 'matching'){
+    } else if (from === 'matching') {
         error === 'please login to view page'
     }
     res.render("login", { error });
@@ -132,33 +132,30 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
-app.get("/profile", async(req,res)=>{
+app.get("/profile", async(req, res) => {
     const token = req.cookies.authToken;
-    if(!token)
-    {
+    if (!token) {
         res.redirect("/login?from=profile")
-    } else{
+    } else {
         res.render("profile");
     }
 });
 
 //render pet profile
-app.get("/petProfile", (req,res)=>{
+app.get("/petProfile", (req, res) => {
     const token = req.cookies.authToken;
-    if(!token)
-    {
+    if (!token) {
         res.redirect("/login?from=petProfile")
-    } else{
+    } else {
         res.render("petProfile");
     }
 });
 
-app.get("/matching", (req,res)=>{
+app.get("/matching", (req, res) => {
     const token = req.cookies.authToken;
-    if(!token)
-    {
+    if (!token) {
         res.redirect("/login?from=matching")
-    } else{
+    } else {
         res.render("matching");
     }
 });
