@@ -160,6 +160,27 @@ app.get("/matching", (req, res) => {
     }
 });
 
+app.post("/new-pet", async(req, res) => {
+    const db = await dbPromise;
+    //const user = db.get();
+    const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
+    await db.run(
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo) VALUES (?, ?, ?, ?, ?, ?)",
+        petname, 
+        species, 
+        gender,
+        age, 
+        petbio, 
+        otherpetinfo,
+    )
+    res.redirect("/profile");
+});
+
+app.get("/new-pet"), (req,res)=>{
+    res.render("new-pet");
+}
+
+
 //Setups database what port is being listened on
 const setup = async() => {
     const db = await dbPromise;
