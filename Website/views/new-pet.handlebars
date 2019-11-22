@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New Pet</title>
+</head>
+<body>
+    <form mtehod="POST" action="/new-pet">
+        Name: <br>
+        <input name="petname" type="text"> <br>
+        Species:<br>
+        <select name="species" form="new-pet">
+            <option value="cat" selected>Cat</option>
+            <option value="dog">Dog</option>
+            <option value="rabbit">Rabbit</option>
+        </select>
+        <br>
+        
+        Gender:<br>
+        <input form="new-pet" type="radio" name="gender" value="m">Male<br>
+        <input form="new-pet" type="radio" name="gender" value="f">Female<br>
+        
+        Age: <br>
+        <input form="new-pet" type="number" name="age"><br>
+        
+        Bio:<br>
+        <textarea form="new-pet" name="petbio" id="new-pet-bio" cols="30" rows="10"></textarea>
+        <br>
+
+        Other Info: <br>
+        <input type="checkbox" name="otherpetinfo" value="spayed">Spayed/Neutered<br>
+        <input type="checkbox" name="otherpetinfo" value="friendly">Friendly with other types of pets<br>
+        <input type="checkbox" name="otherpetinfo" value="immunized">Up to date on all their shots<br>
+    </form>
+</body>
+</html>

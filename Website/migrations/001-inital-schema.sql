@@ -6,10 +6,24 @@ CREATE TABLE users
     name STRING,
     password STRING
 );
+
+CREATE TABLE pets
+(
+    petname STRING, 
+    species STRING, 
+    gender STRING,
+    age INTEGER, 
+    petbio STRING, 
+    otherpetinfo STRING,
+    petOwner INTEGER,
+    petId INTEGER PRIMARY KEY,
+    FOREIGN KEY(petOwner) REFERENCES users(id)
+);
+
 CREATE TABLE authToken(
     token STRING PRIMARY KEY,
     userId INTEGER,
-    FOREIGN KEY(userId) REFERENCES users(id)
+    FOREIGN KEY(userId)n89nx REFERENCES users(id)
 );
 
 -- Down
