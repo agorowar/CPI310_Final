@@ -5,6 +5,8 @@ const sqlite = require('sqlite');
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 const uuidv4 = require("uuid/v4");
+const multer = require('multer');
+const path = require('path');
 
 const saltRounds = 10;
 const app = express();
@@ -38,6 +40,43 @@ const authorize = async(req, res, next) => {
     req.user = user;
     next();
 };
+
+//Storage system with Multer
+const storage = multer.diskStorage({
+
+    //Set where uploaded images are stored
+    destination: '.Website/public/uploads/',
+
+    //Callback file name into storage
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+//check for filetypes
+function checkFileType(file, cb){
+
+    //Allowed extentions
+    const filetypes = /jpeg|jpg|png|gif/;
+
+    //Check extentions of file
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    //Check mime
+    //Mimetype is a standard that indicates the nature and format of a document, file, or assortment of bytes.
+    //Browsers use the MIME type, not the file extension, to determine how to process a URL, so it's important that web servers send the correct MIME type in the response's 
+    //Content-Type header. If this is not correctly configured, browsers are likely to misinterpret the contents of files and sites will not work correctly, 
+    //and downloaded files may be mishandled.
+    const mimetype = filetypes.test(file.mimetype);
+
+    //If the mimetype test is positive and the extname is the same as the set allowed filetypes
+    //Return callback true
+    if(mimetype && extname){
+      return cb(null,true);
+    } else {
+      cb('Error: Images Only!');
+    }
+}
 
 app.use(authorize);
 
@@ -141,6 +180,62 @@ app.get("/profile", async(req, res) => {
     }
 });
 
+//Replace filepath in directory with defined filepath with dirname
+app.get('/userimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/userimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "Website/public/uploads/" + filePath)
+})
+
+app.get("/ownerForm", async(req,res)=>{
+    res.render("ownerForm");
+})
+
+app.post("/ownerForm", async(req, res) => {
+    const db = await dbPromise;
+    const {location, bio} = req.body;
+    let error = null;
+    if (!location) {
+        error = "location field is required";
+    }
+    if (!bio) {
+        error = "bio field is required";
+    }
+    if (error) {
+        return res.render("ownerForm", { error: error });
+    }
+    //Check for errors with image upload
+    upload(req,res, async(err)=>{
+        if(err){
+            return res.render('ownerForm', {error:err})
+        }
+        if(req.file == undefined){
+            return res.render('ownerForm', { error: 'Error: No File Selected!'});
+                
+        //else if there are no errors
+        } else{
+            //save filepath
+            const fileName = req.file.filename;
+            console.log("read fileName: " + fileName);
+    
+            //Delete Last File
+            //Omit delete function to have multiple images displayed instead of one
+            await db.run("DELETE FROM profileImages WHERE userId = ?",userId.id);
+
+            //insert filepath into database
+            await db.run("INSERT INTO profileImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
+        }
+    });
+    await db.run(
+        "INSERT INTO users (location,bio) VALUES (?,?)",
+        location,
+        bio
+      );
+    res.redirect("/profile");
+});
+
 //render pet profile
 app.get("/petProfile", (req, res) => {
     const token = req.cookies.authToken;
@@ -151,6 +246,70 @@ app.get("/petProfile", (req, res) => {
     }
 });
 
+app.post("/new-pet", async(req, res) => {
+    const db = await dbPromise;
+    const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
+    let error = null;
+    if (!petname) {
+        error = "pet name field is required";
+    }
+    if (!species) {
+        error = "species field is required";
+    }
+    if (!gender) {
+        error = "gender field is required";
+    }
+    if (!age) {
+        error = "age field is required";
+    }
+    if (!petbio) {
+        error = "pet bio field is required";
+    }
+    if (!otherpetinfo) {
+        error = "otehr pet info field is required";
+    }
+    if (error) {
+        return res.render("new-pet", { error: error });
+    }
+    //Check for errors with image upload
+    upload(req,res, async(err)=>{
+        if(err){
+            return res.render('new-pet', {error:err})
+        }
+        if(req.file == undefined){
+            return res.render('new-pet', { error: 'Error: No File Selected!'});
+                    
+        //else if there are no errors
+        } else{
+            //save filepath
+            const fileName = req.file.filename;
+            console.log("read fileName: " + fileName);
+        
+            //Delete Last File
+            //Omit delete function to have multiple images displayed instead of one
+            await db.run("DELETE FROM petImages WHERE userId = ?",userId.id);
+    
+            //insert filepath into database
+            await db.run("INSERT INTO petImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
+        }
+    });
+    await db.run(
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petId) VALUES (?, ?, ?, ?, ?, ?,?)",
+        petname, 
+        species, 
+        gender,
+        age, 
+        petbio, 
+        otherpetinfo,
+        petId.id
+    )
+    res.redirect("/petProfile");
+});
+
+app.get("/new-pet"), (req,res)=>{
+    res.render("new-pet");
+}
+
 app.get("/matching", (req, res) => {
     const token = req.cookies.authToken;
     if (!token) {
@@ -159,27 +318,6 @@ app.get("/matching", (req, res) => {
         res.render("matching");
     }
 });
-
-app.post("/new-pet", async(req, res) => {
-    const db = await dbPromise;
-    //const user = db.get();
-    const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo) VALUES (?, ?, ?, ?, ?, ?)",
-        petname, 
-        species, 
-        gender,
-        age, 
-        petbio, 
-        otherpetinfo,
-    )
-    res.redirect("/profile");
-});
-
-app.get("/new-pet"), (req,res)=>{
-    res.render("new-pet");
-}
-
 
 //Setups database what port is being listened on
 const setup = async() => {

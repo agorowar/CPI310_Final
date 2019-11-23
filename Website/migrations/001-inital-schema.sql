@@ -8,7 +8,18 @@ CREATE TABLE users
     location STRING,
     bio STRING
 );
-
+CREATE TABLE profileImages
+(
+    fileName STRING PRIMARY KEY,
+    userId INTEGER,
+    FOREIGN KEY(userId) REFERENCES users(id)
+);
+CREATE TABLE petImages
+(
+    fileName STRING PRIMARY KEY,
+    userId INTEGER,
+    FOREIGN KEY(userId) REFERENCES users(id)
+);
 CREATE TABLE pets
 (
     petname STRING, 
@@ -17,9 +28,8 @@ CREATE TABLE pets
     age INTEGER, 
     petbio STRING, 
     otherpetinfo STRING,
-    petOwner INTEGER,
     petId INTEGER PRIMARY KEY,
-    FOREIGN KEY(petOwner) REFERENCES users(id)
+    FOREIGN KEY(petId) REFERENCES users(id)
 );
 
 CREATE TABLE authToken(
@@ -30,4 +40,7 @@ CREATE TABLE authToken(
 
 -- Down
 DROP TABLE users;
+DROP TABLE profileImages;
+DROP TABLE petImages;
+DROP TABLE pets;
 DROP TABLE authToken;
