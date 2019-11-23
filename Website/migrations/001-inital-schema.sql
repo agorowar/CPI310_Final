@@ -25,7 +25,7 @@ CREATE TABLE pets
 CREATE TABLE authToken(
     token STRING PRIMARY KEY,
     userId INTEGER,
-    FOREIGN KEY(userId)n89nx REFERENCES users(id)
+    FOREIGN KEY(userId) REFERENCES users(id)
 );
 
 -- Down
