@@ -1,4 +1,3 @@
-/* Owner styles */
 
 * {
     margin: 0;
@@ -14,6 +13,8 @@ h1 {
 body {
     font-family: 'Roboto', sans-serif;
 }
+
+/* REGISTER AND LOGIN */
 
 .input_field{
     background-color: #E08457;
@@ -39,7 +40,11 @@ body {
     border-radius: 4px;
 
 }
-.wrapper {
+
+/* OWNER STYLES */
+
+
+/* .wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -118,10 +123,10 @@ body {
     font-size: 13px;
     margin-bottom: 10px;
     color: #919aa3;
-}
+} */
 
 
-/*matching Styles */
+/* MATCHING STYLES */
 
 .leftColumn {
     display: flex;

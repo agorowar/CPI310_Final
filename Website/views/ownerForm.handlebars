@@ -1,19 +1,22 @@
-<h1>Owner Profile Form</h1>
+<div> 
+  <h1>Owner Profile Form</h1>
+  <body class = "input_field">
 <form action="/ownerForm" method="POST" enctype="multipart/form-data">
-  <div>
-    <label for="location">Location</label>
-    <input type="text" name="location" id="location" />
-  </div>
-  <div>
-    <label for="bio">Bio</label>
-    <input type="text" name="bio" id="bio">
-  </div>
-  <div>
-    <label>Profile Image</label>
-      <div class="file-field input-field">
-        <input name="myImage" type="file">
-      </div>
-  </div>
-  <button type="submit">register</button>
-</form>
-
+    <div>
+      <label for="location">Location</label>
+      <input type="text" name="location" id="location" class = "input_box">
+    </div>
+    <div>
+      <label for="bio">Bio</label>
+      <input type="text" name="bio" id="bio" class = "input_box">
+    </div>
+    <div>
+      <label>Profile Image</label>
+        <div class="file-field input-field">
+          <input name="myImage" type="file">
+        </div>
+    </div>
+    <button type="submit" class = "input_button">register</button>
+  </form>
+  </body>
+</div>
