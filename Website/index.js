@@ -263,42 +263,43 @@ app.post("/ownerForm", async(req, res) => {
     if (error) {
         return res.render("ownerForm", { error: error });
     }
+    const userId = await db.get("SELECT * FROM users");
+    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,userId.id);
+    res.redirect("/profile");
+});
+
+app.get("/ownerImage", (req,res)=>{
+    res.render("ownerImage");
+});
+
+app.post("/ownerImage", async(req,res)=>{
+    const db = await dbPromise;
     //Check for errors with image upload
     profileUpload(req,res, async(err)=>{
         if(err){
-            return res.render('ownerForm', {error:err})
+            return res.render('ownerImage', {error:err})
         }
         if(req.file == undefined){
-            return res.render('ownerForm', { error: 'Error: No File Selected!'});
-                
+            return res.render('ownerImage', { error: 'Error: No File Selected!'});
+                    
         //else if there are no errors
         } else{
-            //save filepath
+             //save filepath
             const fileName = req.file.filename;
             console.log("read fileName: " + fileName);
-
+    
             const userId = await db.get("SELECT * FROM users");
-
+    
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
             await db.run("DELETE FROM profileImages WHERE userId = ?",userId.id);
-
+    
             //insert filepath into database
             await db.run("INSERT INTO profileImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
+            res.redirect("profile");
         }
     });
-    const token = req.cookies.authToken;
-    const authToken = await db.get("SELECT * FROM authToken WHERE token=?", token)
-    const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId)
-    const userId = await db.get("SELECT * FROM users");
-    await db.run(
-        "INSERT INTO users (location,bio) VALUES (?,?) WHERE id=?",
-        location,
-        bio,
-        userId.id
-      );
-    res.redirect("/profile");
-});
+})
 
 //render pet profile
 app.get("/petProfile", async(req, res) => {
@@ -379,9 +380,9 @@ app.post("/new-pet", async(req, res) => {
         
             //insert filepath into database
             await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
-        }
-    res.redirect("/petProfile");
-});
+            res.redirect("/petProfile");
+        }   
+    });
 });
 
 app.get("/new-pet", (req, res) => {
