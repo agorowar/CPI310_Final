@@ -6,6 +6,11 @@
     list-style: none;
 }
 
+.carousel {
+    width:640px;
+    height:360px;
+}
+
 h1 {
     font-family: 'Alata', sans-serif;
 }
