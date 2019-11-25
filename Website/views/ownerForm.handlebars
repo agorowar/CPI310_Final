@@ -1,13 +1,5 @@
 <h1>Owner Profile Form</h1>
-<form action="/profile" method="POST">
-  <div>
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" />
-  </div>
-  <div>
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name" />
-  </div>
+<form action="/ownerForm" method="POST" enctype="multipart/form-data">
   <div>
     <label for="location">Location</label>
     <input type="text" name="location" id="location" />
@@ -18,13 +10,10 @@
   </div>
   <div>
     <label>Profile Image</label>
-    <form action="/ownerForm" method="POST" enctype="multipart/form-data">
       <div class="file-field input-field">
         <input name="myImage" type="file">
       </div>
-      <button type="submit" class="btn">Submit</button>
-    </form>
   </div>
-  <input type="submit" value="Submit">
+  <button type="submit">register</button>
 </form>
 

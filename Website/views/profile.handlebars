@@ -137,9 +137,12 @@ body{
       </ul>
     </div>
   </nav>
+    <a href="ownerForm">Go To Edit Profile</a>
 		<div class="wrapper">
 			<div class ="left">
-				<img src="profile.jpg" alt="Avatar" width="200">
+        {{#each images}}
+				<img src="/profileimages/{{this.filename}}" width="200">
+        {{/each}}
 				<h4>{{user.name}}</h4>
 				<p>Owner</p>	
 			</div>
@@ -148,12 +151,14 @@ body{
 					<h3>Information</h3>
 					<div class="info_data">
 						<div class="data">
-							<h4>Email</h4>
-							<p>{{user.email}}</p>
+							<h4>Location</h4>
+              {{#if user}}
+							<p>{{user.location}}</p>
 						</div>
 						<div class="data">
-								<h4>Bio</h4>
-								<p>{{user.bio}}</p>
+							<h4>Bio</h4>
+							<p>{{user.bio}}</p>
+              {{/if}}
 						</div>
 					</div>
 				</div>
@@ -171,7 +176,6 @@ body{
 						</div>
 					</div>
 			</div>
-      <a href="ownerForm"><button>Go To Edit Profile</button></a>
 		</div>
 	</body>
 </html>
