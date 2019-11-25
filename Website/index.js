@@ -384,9 +384,14 @@ app.post("/new-pet", async(req, res) => {
 });
 });
 
-app.get("/new-pet"), (req,res)=>{
-    res.render("new-pet");
-}
+app.get("/new-pet", (req, res) => {
+    const token = req.cookies.authToken;
+    if (!token) {
+        res.redirect("/login?from=new-pet")
+    } else {
+        res.render("new-pet");
+    }
+});
 
 
 //Setups database what port is being listened on
