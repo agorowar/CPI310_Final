@@ -5,6 +5,8 @@ const sqlite = require('sqlite');
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 const uuidv4 = require("uuid/v4");
+const multer = require('multer');
+const path = require('path');
 
 const saltRounds = 10;
 const app = express();
@@ -39,7 +41,6 @@ const authorize = async(req, res, next) => {
     next();
 };
 
-<<<<<<< HEAD
 //Storage system with Multer
 const profileStorage = multer.diskStorage({
 
@@ -123,8 +124,6 @@ function checkFileType(file, cb){
     }
 }
 
-=======
->>>>>>> 85f82c59688910f0c317b04cb4b7f48ee7c8270f
 app.use(authorize);
 
 // images
@@ -247,7 +246,6 @@ app.get("/profile", async(req, res) => {
     }
 });
 
-<<<<<<< HEAD
 app.get("/ownerForm", async(req,res)=>{
     res.render("ownerForm");
 })
@@ -302,13 +300,11 @@ app.post("/ownerForm", async(req, res) => {
     res.redirect("/profile");
 });
 
-=======
->>>>>>> 85f82c59688910f0c317b04cb4b7f48ee7c8270f
 //render pet profile
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?", users.email);
+    const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
@@ -329,7 +325,6 @@ app.post("/new-pet", async(req, res) => {
     const db = await dbPromise;
     //const user = db.get();
     const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
-<<<<<<< HEAD
     let error = null;
     if (!petname) {
         error = "pet name field is required";
@@ -354,17 +349,12 @@ app.post("/new-pet", async(req, res) => {
     }
     await db.run(
         "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-=======
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo) VALUES (?, ?, ?, ?, ?, ?)",
->>>>>>> 85f82c59688910f0c317b04cb4b7f48ee7c8270f
         petname, 
         species, 
         gender,
         age, 
         petbio, 
         otherpetinfo,
-<<<<<<< HEAD
         petOwner.email
     )
     //Check for errors with image upload
@@ -391,10 +381,6 @@ app.post("/new-pet", async(req, res) => {
             await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
         }
     res.redirect("/petProfile");
-=======
-    )
-    res.redirect("/profile");
->>>>>>> 85f82c59688910f0c317b04cb4b7f48ee7c8270f
 });
 });
 
