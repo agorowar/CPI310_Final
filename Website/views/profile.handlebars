@@ -15,21 +15,19 @@
 
 <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
-	</head>
-	<body>
-	<nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779;">
+</head>
+<body>
+<!-- add navbar to the top of the body -->
+<nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779; font-family: 'Alata', sans-serif;">
     <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
       <!-- <span class="navbar-toggler-icon"></span> -->
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a> 
-        </li>
+          <a class="navbar-brand" href="/">
+              <img src="redAsset.png" width="30" height="30" alt="">
+          </a>
         <li class="nav-item">
           <a class="nav-link" href="profile">Your Profile</a> 
         </li>
@@ -45,6 +43,7 @@
       </ul>
     </div>
   </nav>
+  <!--  end of nav -->
 		<div class="wrapper">
 			<div class ="left">
 				<img src="profile.jpg" alt="Avatar" width="200">

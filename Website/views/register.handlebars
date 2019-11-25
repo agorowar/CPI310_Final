@@ -1,20 +1,24 @@
 <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/style.css">
-<h1>register</h1>
-<form action="/register" method="POST">
+<div class = "input_field">
+    <h1>register</h1>
+    <body class = "input_field">
+        <form action="/register" method="POST">
     <div>
         <label for="name">name</label>
-        <input type="text" name="name" id="name"/>
+        <input type="text" name="name" id="name" class = "input_box"/>
     </div>
     <div>
-        <label for="email">email</label>
-        <input type="email" name="email" id="email"/>
+    <label for="email">email</label>
+        <input type="email" name="email" id="email" class = "input_box"/>
     </div>
     <div>
         <label for="password">password</label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" id="password" class = "input_box">
     </div>
-    <button type="submit">register</button>
-</form>
-<a href="/">home</a>
-<a href="login">login</a>
+    <button type="submit" class = "input_button">register</button>
+    </form>
+    <a href="/">home</a>
+    <a href="login">login</a>
+    </body>
+</div>

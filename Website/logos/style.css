@@ -15,6 +15,30 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.input_field{
+    background-color: #E08457;
+    text-align: center;
+    font-size: 150%;
+    color: #3B5D5B;
+}
+.input_button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    background-color: #D3C777;
+    width: 75px;
+    height: 50px;
+    color:#455758;
+    border-radius: 10% #D3C777;
+    margin-top: 20px;
+
+}
+.input_box {
+    height: 30px;
+    box-sizing: border-box;
+    border: 2px  #D3C777;
+    border-radius: 4px;
+
+}
 .wrapper {
     position: absolute;
     top: 50%;
@@ -105,7 +129,7 @@ body {
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: #E5C66F;
+    background-color: #D3C777;
     float: left;
 }
 
@@ -115,7 +139,7 @@ body {
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: #E5C66F;
+    background-color: #D3C777;
     float: left;
     margin-left: 10px;
 }
@@ -126,7 +150,7 @@ body {
     justify-content: center;
     height: 300px;
     width: 250px;
-    background-color: #E5C66F;
+    background-color: #D3C777;
     float: left;
     margin-left: 10px;
 }
@@ -142,7 +166,7 @@ body {
 }
 
 .matchingContainer {
-    background-color: #3B5D5B;
+    background-color: #455758;
     height: 320px;
     width: 790px;
     padding: 10px;
