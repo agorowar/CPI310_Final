@@ -42,16 +42,62 @@ const authorize = async(req, res, next) => {
 };
 
 //Storage system with Multer
-const storage = multer.diskStorage({
+const profileStorage = multer.diskStorage({
 
     //Set where uploaded images are stored
-    destination: '.Website/public/uploads/',
+    destination: 'public/profileUploads/',
 
     //Callback file name into storage
     filename: function(req, file, cb){
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
+
+//Storage system with Multer
+const petStorage = multer.diskStorage({
+
+    //Set where uploaded images are stored
+    destination: 'public/petUploads/',
+
+    //Callback file name into storage
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+//inital upload
+const profileUpload = multer({
+
+    //Set storage to storage engine
+    storage: profileStorage,
+
+    //Set file size limit
+    limits:{fileSize: 1000000},
+
+    //Check what files should be uploaded
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+
+    //.single uploads one image at a time, use array for multiple image uploading
+}).single('myImage');
+
+//inital upload
+const petUpload = multer({
+
+    //Set storage to storage engine
+    storage: petStorage,
+
+    //Set file size limit
+    limits:{fileSize: 1000000},
+
+    //Check what files should be uploaded
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+
+    //.single uploads one image at a time, use array for multiple image uploading
+}).array('myImage',3);
 
 //check for filetypes
 function checkFileType(file, cb){
@@ -171,23 +217,34 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
+//Replace filepath in directory with defined filepath with dirname
+app.get('/profileimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/profileimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
+})
+
+//Replace filepath in directory with defined filepath with dirname
+app.get('/petimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/petimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/petUploads/" + filePath)
+})
+
 app.get("/profile", async(req, res) => {
+    const db = await dbPromise;
     const token = req.cookies.authToken;
+    const images = await db.all("SELECT * FROM profileImages");
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
-        res.render("profile");
+        res.render("profile", {user: req.user, images});
     }
 });
-
-//Replace filepath in directory with defined filepath with dirname
-app.get('/userimages/*', async (req, res) => {
-
-    //Replace filepath with new filepath
-    let filePath = req.path.replace("/userimages/", "")
-    console.log("fp", filePath)
-    res.sendFile(__dirname + "Website/public/uploads/" + filePath)
-})
 
 app.get("/ownerForm", async(req,res)=>{
     res.render("ownerForm");
@@ -206,48 +263,68 @@ app.post("/ownerForm", async(req, res) => {
     if (error) {
         return res.render("ownerForm", { error: error });
     }
+    const userId = await db.get("SELECT * FROM users");
+    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,userId.id);
+    res.redirect("/profile");
+});
+
+app.get("/ownerImage", (req,res)=>{
+    res.render("ownerImage");
+});
+
+app.post("/ownerImage", async(req,res)=>{
+    const db = await dbPromise;
     //Check for errors with image upload
-    upload(req,res, async(err)=>{
+    profileUpload(req,res, async(err)=>{
         if(err){
-            return res.render('ownerForm', {error:err})
+            return res.render('ownerImage', {error:err})
         }
         if(req.file == undefined){
-            return res.render('ownerForm', { error: 'Error: No File Selected!'});
-                
+            return res.render('ownerImage', { error: 'Error: No File Selected!'});
+                    
         //else if there are no errors
         } else{
-            //save filepath
+             //save filepath
             const fileName = req.file.filename;
             console.log("read fileName: " + fileName);
+    
+            const userId = await db.get("SELECT * FROM users");
     
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
             await db.run("DELETE FROM profileImages WHERE userId = ?",userId.id);
-
+    
             //insert filepath into database
             await db.run("INSERT INTO profileImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
+            res.redirect("profile");
         }
     });
-    await db.run(
-        "INSERT INTO users (location,bio) VALUES (?,?)",
-        location,
-        bio
-      );
-    res.redirect("/profile");
-});
+})
 
 //render pet profile
-app.get("/petProfile", (req, res) => {
+app.get("/petProfile", async(req, res) => {
+    const db = await dbPromise;
     const token = req.cookies.authToken;
+    const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
-        res.render("petProfile");
+        res.render("petProfile", {pets: req.pets, images});
+    }
+});
+
+app.get("/matching", (req, res) => {
+    const token = req.cookies.authToken;
+    if (!token) {
+        res.redirect("/login?from=matching")
+    } else {
+        res.render("matching");
     }
 });
 
 app.post("/new-pet", async(req, res) => {
     const db = await dbPromise;
+    //const user = db.get();
     const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
     let error = null;
     if (!petname) {
@@ -271,53 +348,52 @@ app.post("/new-pet", async(req, res) => {
     if (error) {
         return res.render("new-pet", { error: error });
     }
-    //Check for errors with image upload
-    upload(req,res, async(err)=>{
-        if(err){
-            return res.render('new-pet', {error:err})
-        }
-        if(req.file == undefined){
-            return res.render('new-pet', { error: 'Error: No File Selected!'});
-                    
-        //else if there are no errors
-        } else{
-            //save filepath
-            const fileName = req.file.filename;
-            console.log("read fileName: " + fileName);
-        
-            //Delete Last File
-            //Omit delete function to have multiple images displayed instead of one
-            await db.run("DELETE FROM petImages WHERE userId = ?",userId.id);
-    
-            //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
-        }
-    });
     await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petId) VALUES (?, ?, ?, ?, ?, ?,?)",
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
         petname, 
         species, 
         gender,
         age, 
         petbio, 
         otherpetinfo,
-        petId.id
+        petOwner.email
     )
-    res.redirect("/petProfile");
+    //Check for errors with image upload
+    petUpload(req,res, async(err)=>{
+        if(err){
+            return res.render('new-pet', {error:err})
+        }
+        if(req.file == undefined){
+            return res.render('new-pet', { error: 'Error: No File Selected!'});
+                        
+        //else if there are no errors
+        } else{
+            //save filepath
+            const fileName = req.files.filename;
+            console.log("read fileName: " + fileName);
+            
+            const petId = await db.get("SELECT * FROM pets");
+
+            //Delete Last File
+            //Omit delete function to have multiple images displayed instead of one
+            await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
+        
+            //insert filepath into database
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            res.redirect("/petProfile");
+        }   
+    });
 });
 
-app.get("/new-pet"), (req,res)=>{
-    res.render("new-pet");
-}
-
-app.get("/matching", (req, res) => {
+app.get("/new-pet", (req, res) => {
     const token = req.cookies.authToken;
     if (!token) {
-        res.redirect("/login?from=matching")
+        res.redirect("/login?from=new-pet")
     } else {
-        res.render("matching");
+        res.render("new-pet");
     }
 });
+
 
 //Setups database what port is being listened on
 const setup = async() => {

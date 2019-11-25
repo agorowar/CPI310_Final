@@ -17,19 +17,20 @@ CREATE TABLE profileImages
 CREATE TABLE petImages
 (
     fileName STRING PRIMARY KEY,
-    userId INTEGER,
-    FOREIGN KEY(userId) REFERENCES users(id)
+    petId INTEGER,
+    FOREIGN KEY(petId) REFERENCES pets(id)
 );
 CREATE TABLE pets
 (
+    id INTEGER PRIMARY KEY,
     petname STRING, 
     species STRING, 
     gender STRING,
     age INTEGER, 
     petbio STRING, 
     otherpetinfo STRING,
-    petId INTEGER PRIMARY KEY,
-    FOREIGN KEY(petId) REFERENCES users(id)
+    petOwner STRING,
+    FOREIGN KEY(petOwner) REFERENCES users(email)
 );
 
 CREATE TABLE authToken(
