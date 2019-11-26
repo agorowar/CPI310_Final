@@ -58,6 +58,10 @@ header a:hover {
     border-bottom: 1px solid #344873;
 }
 
+label {
+    color: black;
+}
+
 main {
     padding-top: 1px;
     padding-right: 20px;
