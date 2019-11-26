@@ -52,7 +52,7 @@ const profileStorage = multer.diskStorage({
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-/*
+
 //Storage system with Multer
 const petStorage = multer.diskStorage({
 
@@ -64,7 +64,7 @@ const petStorage = multer.diskStorage({
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-*/
+
 //inital upload
 const profileUpload = multer({
 
@@ -78,7 +78,7 @@ const profileUpload = multer({
 
     //.single uploads one image at a time, use array for multiple image uploading
 }).single('myImage');
-/*
+
 //inital upload
 const petUpload = multer({
 
@@ -92,7 +92,7 @@ const petUpload = multer({
 
     //.single uploads one image at a time, use array for multiple image uploading
 }).array('myImage',3);
-*/
+
 //check for filetypes
 function checkFileType(file, cb){
 
@@ -128,7 +128,7 @@ app.get('/profileimages/*', async (req, res) => {
     console.log("fp", filePath)
     res.sendFile(__dirname + "/public/profileUploads/" + filePath)
 })
-/*
+
 //Replace filepath in directory with defined filepath with dirname
 app.get('/petimages/*', async (req, res) => {
 
@@ -137,7 +137,7 @@ app.get('/petimages/*', async (req, res) => {
     console.log("fp", filePath)
     res.sendFile(__dirname + "/public/petUploads/" + filePath)
 })
-*/
+
 app.use(authorize);
 
 // images
@@ -431,8 +431,8 @@ app.post("/petImage", async(req,res)=>{
         //else if there are no errors
         } else{
             //save filepath
-            const fileName = req.files.filename;
-            console.log("read fileName: " + fileName);
+            const fileNames = req.files.filename;
+            console.log("read fileNames: " + fileNames);
             
             const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.email);
 
@@ -441,7 +441,7 @@ app.post("/petImage", async(req,res)=>{
             await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
         
             //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileNames,petId.id);
             res.redirect("petProfile");
         }   
     });
