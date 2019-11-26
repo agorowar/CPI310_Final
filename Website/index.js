@@ -345,7 +345,7 @@ app.post("/new-pet", async(req, res) => {
     if (error) {
         return res.render("new-pet", { error: error });
     }
-    const petOwner = db.get("SELECT * FROM users");
+    //const petOwner = db.get("SELECT * FROM users WHERE id=?", user.id);
     await db.run(
         "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
         petname, 
@@ -354,7 +354,7 @@ app.post("/new-pet", async(req, res) => {
         age, 
         petbio, 
         otherpetinfo,
-        petOwner.email
+        req.user.email
     );
     res.redirect("petProfile");
 });
