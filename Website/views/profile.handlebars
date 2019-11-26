@@ -19,6 +19,8 @@ body{
    background: white;
 
 }
+
+
 		</style>
 		<!-- add bootstrap, css and fonts to head -->
 
@@ -55,46 +57,48 @@ body{
 
   <!--  end of nav -->
   
-    <a href="ownerForm">Go To Edit Profile</a>
-	<a href="ownerImage">Upload Image</a>
-		<div class="wrapper">
-			<div class ="left">
-        {{#each images}}
-				<img src="/profileimages/{{this.fileName}}" width="200">
-        {{/each}}
-				<h4>{{user.name}}</h4>
-				<p>Owner</p>	
-			</div>
-			<div class="right">
-				<div class="info">
-					<h3>Information</h3>
-					<div class="info_data">
-						<div class="data">
-							<h4>Location</h4>
-              {{#if user}}
-							<p>{{user.location}}</p>
-						</div>
-						<div class="data">
-							<h4>Bio</h4>
-							<p>{{user.bio}}</p>
-              {{/if}}
-						</div>
-					</div>
-				</div>
-				<div class="projects">
-						<h3>Pets</h3>
-						<div class="info_data">
-							<div class="data">
-								<h4>Cooper</h4>
-								<img src="cooper.jpg" alt="" width="100">
-							</div>
-							<div class="data">
-									<h4>Waffles</h4>
-									<img src="waffles.jpeg" alt="" width="100">
-							</div>
-						</div>
-					</div>
-			</div>
-		</div>
+<div class = "gradient" style = "height: 100%">
+      <a href="ownerForm">Go To Edit Profile</a>
+    <a href="ownerImage">Upload Image</a>
+      <div class="wrapper">
+        <div class ="left">
+          {{#each images}}
+          <img src="/profileimages/{{this.filename}}" width="200">
+          {{/each}}
+          <h4>{{user.name}}</h4>
+          <p>Owner</p>	
+        </div>
+        <div class="right">
+          <div class="info">
+            <h3>Information</h3>
+            <div class="info_data">
+              <div class="data">
+                <h4>Location</h4>
+                {{#if user}}
+                <p>{{user.location}}</p>
+              </div>
+              <div class="data">
+                <h4>Bio</h4>
+                <p>{{user.bio}}</p>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="projects">
+              <h3>Pets</h3>
+              <div class="info_data">
+                <div class="data">
+                  <h4>Cooper</h4>
+                  <img src="cooper.jpg" alt="" width="100">
+                </div>
+                <div class="data">
+                    <h4>Waffles</h4>
+                    <img src="waffles.jpeg" alt="" width="100">
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
 	</body>
 </html>
