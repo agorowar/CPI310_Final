@@ -118,6 +118,29 @@ function checkFileType(file, cb){
     }
 }
 
+<<<<<<< HEAD
+//Replace filepath in directory with defined filepath with dirname
+app.get('/profileimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePathtest = req.path;
+    console.log("fptest",filePathtest)
+    let filePath = req.path.replace("/profileimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
+})
+
+//Replace filepath in directory with defined filepath with dirname
+app.get('/petimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/petimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/petUploads/" + filePath)
+})
+
+=======
+>>>>>>> 4528dd2ce01c6f85805402246db3a4e329a133a6
 app.use(authorize);
 
 // images
@@ -369,8 +392,8 @@ app.post("/petImage", async(req,res)=>{
         //else if there are no errors
         } else{
             //save filepath
-            const fileName = req.files.filename;
-            console.log("read fileName: " + fileName);
+            const fileNames = req.files.filename;
+            console.log("read fileNames: " + fileNames);
             
             const petId = await db.get("SELECT * FROM pets");
 
@@ -379,7 +402,7 @@ app.post("/petImage", async(req,res)=>{
             await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
         
             //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileNames,petId.id);
             res.redirect("petProfile");
         }   
     });
