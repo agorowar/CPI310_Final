@@ -3,12 +3,12 @@
 <head>
     <title>New Pet</title>
 </head>
-<body>
+<body class = "input_field">
     <form method="POST" action="/new-pet" enctype="multipart/form-data">
         Name: <br>
-        <input name="petname" type="text"> <br>
+        <input name="petname" type="text" class = "input_box"> <br>
         Species:<br>
-        <select name="species" form="new-pet">
+        <select name="species" form="new-pet" class = "text_margin">
             <option value="cat" selected>Cat</option>
             <option value="dog">Dog</option>
             <option value="rabbit">Rabbit</option>
@@ -17,26 +17,26 @@
         
         Gender:<br>
         <input form="new-pet" type="radio" name="gender" value="m">Male<br>
-        <input form="new-pet" type="radio" name="gender" value="f">Female<br>
+        <input form="new-pet" type="radio" name="gender" value="f" class = "text_margin">Female<br>
         
         Age: <br>
-        <input form="new-pet" type="number" name="age"><br>
+        <input form="new-pet" type="number" name="age" class = "input_box"><br>
         
         Bio:<br>
-        <textarea form="new-pet" name="petbio" id="new-pet-bio" cols="30" rows="10"></textarea>
+        <textarea form="new-pet" name="petbio" id="new-pet-bio" cols="30" rows="10" class = "text_margin" ></textarea>
         <br>
 
         Other Info: <br>
         <input type="checkbox" name="otherpetinfo" value="spayed">Spayed/Neutered<br>
         <input type="checkbox" name="otherpetinfo" value="friendly">Friendly with other types of pets<br>
-        <input type="checkbox" name="otherpetinfo" value="immunized">Up to date on all their shots<br>
+        <input type="checkbox" name="otherpetinfo" value="immunized" class = "text_margin">Up to date on all their shots<br>
 
         Pet Image: <br>
             <div class="file-field input-field">
                 <input name="myImage" type="file">
             </div>
-            <button type="submit" class="btn">Submit</button>
-        <input type="submit">
+            <button type="submit" class="btn" class = "input_button">Submit</button>
+        <input type="submit" class = "input_button">
     </form>
 </body>
 </html>
