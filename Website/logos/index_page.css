@@ -106,6 +106,7 @@ dt {
     background-color: #90C7E3;
     background-image: linear-gradient(to bottom, #FFFFFF, #F2A74B);
     padding: 2em;
+    min-height: 100%;
 }
 
 footer {
