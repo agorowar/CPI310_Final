@@ -10,51 +10,55 @@
 
             <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
 
+            
         </head>
 
         <body>
+            <script type="text/javascript" src="/testMatch.js"></script>
 
             <!-- add navbar to the top of the body -->
-            <nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779;">
+                <nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779; font-family: 'Alata', sans-serif;">
                 <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
-             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-            <!-- <span class="navbar-toggler-icon"></span> -->
-      
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+                <!-- <span class="navbar-toggler-icon"></span> -->
+            
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a> 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile">Your Profile</a> 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="petProfile">Your Pets</a> 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="matching">Match with Pets</a> 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout">Logout</a>
-                        </li>
-                    </ul>
+                <ul class="navbar-nav mr-auto">
+                    <a class="navbar-brand" href="/">
+                        <img src="redAsset.png" width="30" height="30" alt="">
+                    </a>
+                    <li class="nav-item">
+                    <a class="nav-link" href="profile">Your Profile</a> 
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="petProfile">Your Pets</a> 
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="matching">Match with Pets</a> 
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="logout">Logout</a>
+                    </li>
+                </ul>
                 </div>
             </nav>
-
             <div class = "top"> <!-- header -->
                 <h1>Matching Feed</h1>
+                <button type = "button" onclick = "test()"> Click to Test </button>
             </div>
 
-            <div class = "feed">   <!-- feed -->
+            <div class = "feed" id = "feed">   <!-- feed -->
                 <!-- container 1-->
-                <div class = "container"> <!-- match container -->
+                <div class = "container" id = "container1"> <!-- match container -->
                     <div class = "owner"> <!-- owner container -->
                         <div class = "ownerPic"> <!-- owner picture -->
-    
+                            <!-- needs to add this profile's pic to page -->
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
                         </div>
     
                         <div class = "ownerInfo"> <!-- owner info -->
-    
+                            <!-- needs to add this profile's info to page -->
+                            <p></p>
                         </div>
                     </div>
     
@@ -62,46 +66,52 @@
                         <!-- pet 1 -->
                         <div class = "petContainer"> 
                             <div class = "petPic"> <!-- pet1 pic -->
-    
+                                <!-- needs to add this profile's 1st pet's pic to page -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
                             </div>
     
                             <div class = "petInfo"> <!-- pet1 info -->
-    
+                                <!-- needs to add this profile's 1st pet's info to page -->
+                                <p></p>
                             </div>
                         </div>
 
                         <!-- pet 2 -->
                         <div class = "petContainer"> 
                             <div class = "petPic"> <!-- pet1 pic -->
-    
+                                <!-- needs to add this profile's 2nd pet's pic (if any) to page -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
                             </div>
     
                             <div class = "petInfo"> <!-- pet1 info -->
-    
+                                <!-- needs to add this profile's 2nd pet's info (if any) to page -->
+                                <p></p>
                             </div>
                         </div>
                     </div>
     
                     <div class = "buttons"> <!-- buttons container -->
                         <div class = "buttonContainer"> <!-- button1 -->
-                            
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
+                            <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
                         </div>
     
                         <div class = "buttonContainer"> <!-- butoon2 -->
-    
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
+                            <!-- needs to remove container and then add new container with new profile at bottom of page -->
                         </div>
                     </div>
                 </div>
 
                 <!-- container 2-->
-                <div class = "container"> <!-- match container -->
+                <div class = "container" id = "container2"> <!-- match container -->
                     <div class = "owner"> <!-- owner container -->
                         <div class = "ownerPic"> <!-- owner picture -->
-    
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
                         </div>
     
                         <div class = "ownerInfo"> <!-- owner info -->
-    
+                            <p></p>
                         </div>
                     </div>
     
@@ -109,36 +119,225 @@
                         <!-- pet 1 -->
                         <div class = "petContainer"> 
                             <div class = "petPic"> <!-- pet1 pic -->
-    
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
                             </div>
     
                             <div class = "petInfo"> <!-- pet1 info -->
-    
+                                <p></p>
                             </div>
                         </div>
 
                         <!-- pet 2 -->
                         <div class = "petContainer"> 
                             <div class = "petPic"> <!-- pet1 pic -->
-    
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
                             </div>
     
                             <div class = "petInfo"> <!-- pet1 info -->
-    
+                                <p></p>
                             </div>
                         </div>
                     </div>
     
                     <div class = "buttons"> <!-- buttons container -->
                         <div class = "buttonContainer"> <!-- button1 -->
-                            
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48" onclick="test()">
                         </div>
     
                         <div class = "buttonContainer"> <!-- butoon2 -->
-    
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48" onclick="test()">
                         </div>
                     </div>
                 </div>
+
+                <!-- container 3-->
+                <div class = "container" id = "container3"> <!-- match container -->
+                    <div class = "owner"> <!-- owner container -->
+                        <div class = "ownerPic"> <!-- owner picture -->
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
+                        </div>
+    
+                        <div class = "ownerInfo"> <!-- owner info -->
+                            <p></p>
+                        </div>
+                    </div>
+    
+                    <div class = "pets"> <!-- pets container -->
+                        <!-- pet 1 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+
+                        <!-- pet 2 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class = "buttons"> <!-- buttons container -->
+                        <div class = "buttonContainer"> <!-- button1 -->
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+    
+                        <div class = "buttonContainer"> <!-- butoon2 -->
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- container 4-->
+                <div class = "container" id = "container4"> <!-- match container -->
+                    <div class = "owner"> <!-- owner container -->
+                        <div class = "ownerPic"> <!-- owner picture -->
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
+                        </div>
+    
+                        <div class = "ownerInfo"> <!-- owner info -->
+                            <p></p>
+                        </div>
+                    </div>
+    
+                    <div class = "pets"> <!-- pets container -->
+                        <!-- pet 1 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+
+                        <!-- pet 2 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class = "buttons"> <!-- buttons container -->
+                        <div class = "buttonContainer"> <!-- button1 -->
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+    
+                        <div class = "buttonContainer"> <!-- butoon2 -->
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- container 5-->
+                <div class = "container" id = "container5"> <!-- match container -->
+                    <div class = "owner"> <!-- owner container -->
+                        <div class = "ownerPic"> <!-- owner picture -->
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
+                        </div>
+    
+                        <div class = "ownerInfo"> <!-- owner info -->
+                            <p></p>
+                        </div>
+                    </div>
+    
+                    <div class = "pets"> <!-- pets container -->
+                        <!-- pet 1 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+
+                        <!-- pet 2 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class = "buttons"> <!-- buttons container -->
+                        <div class = "buttonContainer"> <!-- button1 -->
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+    
+                        <div class = "buttonContainer"> <!-- butoon2 -->
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- container 6-->
+                <div class = "container" id = "container6"> <!-- match container -->
+                    <div class = "owner"> <!-- owner container -->
+                        <div class = "ownerPic"> <!-- owner picture -->
+                            <iframe height = 100% width = 100% frameborder="0"></iframe>
+                        </div>
+    
+                        <div class = "ownerInfo"> <!-- owner info -->
+                            <p></p>
+                        </div>
+                    </div>
+    
+                    <div class = "pets"> <!-- pets container -->
+                        <!-- pet 1 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+
+                        <!-- pet 2 -->
+                        <div class = "petContainer"> 
+                            <div class = "petPic"> <!-- pet1 pic -->
+                                <iframe height = 100% width = 100% frameborder="0"></iframe>
+                            </div>
+    
+                            <div class = "petInfo"> <!-- pet1 info -->
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class = "buttons"> <!-- buttons container -->
+                        <div class = "buttonContainer"> <!-- button1 -->
+                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+    
+                        <div class = "buttonContainer"> <!-- butoon2 -->
+                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48" onclick="test()">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </body>
     </html>

@@ -35,7 +35,7 @@ const authorize = async(req, res, next) => {
         return next();
     }
 
-    const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId)
+    const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId);
     console.log("user from authorize ", user);
     req.user = user;
     next();
@@ -265,7 +265,7 @@ app.post("/ownerForm", async(req, res) => {
     }
     const userId = await db.get("SELECT * FROM users");
     await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,userId.id);
-    res.redirect("/profile");
+    res.redirect("profile");
 });
 
 app.get("/ownerImage", (req,res)=>{
@@ -305,26 +305,26 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
+    const pet = await db.all("SELECT * FROM pets");
     const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
-        res.render("petProfile", {pets: req.pets, images});
+        res.render("petProfile", {pets: pet, images});
     }
 });
 
-app.get("/matching", (req, res) => {
+app.get("/new-pet", (req, res) => {
     const token = req.cookies.authToken;
     if (!token) {
-        res.redirect("/login?from=matching")
+        res.redirect("/login?from=new-pet")
     } else {
-        res.render("matching");
+        res.render("new-pet");
     }
 });
 
 app.post("/new-pet", async(req, res) => {
     const db = await dbPromise;
-    //const user = db.get();
     const { petname, species, gender, age, petbio, otherpetinfo  } = req.body;
     let error = null;
     if (!petname) {
@@ -342,12 +342,10 @@ app.post("/new-pet", async(req, res) => {
     if (!petbio) {
         error = "pet bio field is required";
     }
-    // if (!otherpetinfo) {
-    //     error = "other pet info field is required";
-    // } Not required because the user can leave the boxes unchecked
     if (error) {
         return res.render("new-pet", { error: error });
     }
+    //const petOwner = db.get("SELECT * FROM users WHERE id=?", user.id);
     await db.run(
         "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
         petname, 
@@ -356,15 +354,23 @@ app.post("/new-pet", async(req, res) => {
         age, 
         petbio, 
         otherpetinfo,
-        petOwner.email
-    )
+        req.user.email
+    );
+    res.redirect("petProfile");
+});
+
+app.get("/petImage",(req,res)=>{
+    res.render("petImage");
+});
+
+app.post("/petImage", async(req,res)=>{
     //Check for errors with image upload
     petUpload(req,res, async(err)=>{
         if(err){
-            return res.render('new-pet', {error:err})
+            return res.render('petImage', {error:err})
         }
         if(req.file == undefined){
-            return res.render('new-pet', { error: 'Error: No File Selected!'});
+            return res.render('petImage', { error: 'Error: No File Selected!'});
                         
         //else if there are no errors
         } else{
@@ -380,20 +386,19 @@ app.post("/new-pet", async(req, res) => {
         
             //insert filepath into database
             await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
-            res.redirect("/petProfile");
+            res.redirect("petProfile");
         }   
     });
-});
+})
 
-app.get("/new-pet", (req, res) => {
+app.get("/matching", (req, res) => {
     const token = req.cookies.authToken;
     if (!token) {
-        res.redirect("/login?from=new-pet")
+        res.redirect("/login?from=matching")
     } else {
-        res.render("new-pet");
+        res.render("matching");
     }
 });
-
 
 //Setups database what port is being listened on
 const setup = async() => {

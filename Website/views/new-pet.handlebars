@@ -4,11 +4,11 @@
     <title>New Pet</title>
 </head>
 <body>
-    <form method="POST" action="/new-pet" enctype="multipart/form-data">
+    <form method="POST" action="/new-pet">
         Name: <br>
-        <input name="petname" type="text"> <br>
+        <input name="petname" type="text" class = "input_box"> <br>
         Species:<br>
-        <select name="species" form="new-pet">
+        <select name="species">
             <option value="cat" selected>Cat</option>
             <option value="dog">Dog</option>
             <option value="rabbit">Rabbit</option>
@@ -16,26 +16,20 @@
         <br>
         
         Gender:<br>
-        <input form="new-pet" type="radio" name="gender" value="m">Male<br>
-        <input form="new-pet" type="radio" name="gender" value="f">Female<br>
+        <input type="radio" name="gender" value="m">Male<br>
+        <input type="radio" name="gender" value="f">Female<br>
         
         Age: <br>
-        <input form="new-pet" type="number" name="age"><br>
+        <input  type="number" name="age"><br>
         
         Bio:<br>
-        <textarea form="new-pet" name="petbio" id="new-pet-bio" cols="30" rows="10"></textarea>
+        <textarea type="text" name="petbio" id="petbio" cols="30" rows="10"></textarea>
         <br>
 
         Other Info: <br>
-        <input type="checkbox" name="otherpetinfo" value="spayed">Spayed/Neutered<br>
-        <input type="checkbox" name="otherpetinfo" value="friendly">Friendly with other types of pets<br>
-        <input type="checkbox" name="otherpetinfo" value="immunized">Up to date on all their shots<br>
-
-        Pet Image: <br>
-            <div class="file-field input-field">
-                <input name="myImage" type="file">
-            </div>
-            <button type="submit" class="btn">Submit</button>
+        <input type="checkbox" name="otherpetinfo" value="spayed" id="otherpetinfo">Spayed/Neutered<br>
+        <input type="checkbox" name="otherpetinfo" value="friendly" id="otherpetinfo">Friendly with other types of pets<br>
+        <input type="checkbox" name="otherpetinfo" value="immunized" id="otherpetinfo">Up to date on all their shots<br>
         <input type="submit">
     </form>
 </body>

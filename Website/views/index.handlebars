@@ -1,147 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css" type="text/css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paw Me Maybe</title>
+  <link rel="stylesheet" type="text/css" href="index_page.css">
+  <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Alata%7CRoboto&display=swap" rel="stylesheet">
 </head>
 
-
-<style>
-
-  
-  #index_page {
-    background-color: #E08457;
-    text-align: center;
-  }
-
-  li {
-    list-style: none;
-  }
-
-  #CONTENT {
-    background-color: #E08457;
-    height: 92vh;
-  }
-
-  #block {
-    margin-left: auto;
-    margin-right: auto;
-    width: 8em;
-    padding-top: 5%;
-  }
-
-  #block a {
-    border-style: solid;
-    border-width: 3px;
-    border-color: #455758;
-    background-color: #455758;
-    color: white;
-    text-decoration: none;
-    border-radius: 4em;
-  }
-
-  #container {
-    background-color: #E08457;
-    padding: 2em;
-    border-radius: 5px;
-  }
-
-  #logo {
-    width: 100px;
-    padding-bottom: 2em;
-  }
-
-  .container {
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 0 1rem;
-  }
-
-  #dog1 {
-    display: inline-block;
-    width: 100%;
-  }
-
-  #logo {
-    float: center;
-  }
-
-  #dog2 {
-    display: inline-block;
-    width: 100%;
-  }
-</style>
-<div id = "index_page" >
 {{#if user}}
-<!-- add bootstrap, css and fonts to head -->
 
-<!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-  crossorigin="anonymous">
+<body>
+  <div id="wrapper">
+    <header>
+      <h1><a href="/">Paw Me Maybe</a></h1>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #63A779; font-family: 'Alata', sans-serif;">
+        <a class="navbar-brand" href="/">Paw Me Maybe</a>
+        <!--title on the navbar that also functions as a link to the homepage -->
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+        <!-- <span class="navbar-toggler-icon"></span> -->
 
-
-<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
-
-<!-- add navbar to the top of the body -->
-<nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779; font-family: 'Alata', sans-serif;">
-    <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-      <!-- <span class="navbar-toggler-icon"></span> -->
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-          <a class="navbar-brand" href="/">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" href="/">
               <img src="redAsset.png" width="30" height="30" alt="">
-          </a>
-        <li class="nav-item">
-          <a class="nav-link" href="profile">Your Profile</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="petProfile">Your Pets</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="matching">Match with Pets</a> 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="logout">Logout</a>
-        </li>
+            </a>
+            <li class="nav-item">
+              <a class="nav-link" href="profile">Your Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="petProfile">Your Pets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="matching">Match with Pets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div id="petMatch">
+      <ul>
+        <li>What</li>
+        <li>do</li>
+        <li>you</li>
+        <li>want</li>
+        <li>to</li>
+        <li>do</li>
+        <li>today?</li>
       </ul>
     </div>
-  </nav>
-<!-- end of nav -->
-<div id="CONTENT">
-  <h2>
-    Welcome back, {{user.name}}!
-  </h2>
-  <br>
-  <p>
-    <i>What do you want to do today...?</i>
-  </p>
-</div>
-{{else}}
-<div id="container">
-  <h1><i>Paw Me Maybe</i></h1>
-  <p>
-    Paw Me Maybe is a social media site for pet owners. Here, you can connect with nearby pet
-    owners, explore our 'adopt' messageboard, and find the best <i>match</i> for the special pet in your life!
-    <ul>
-      <li><b>*</b> Create your own <b>Pet Profile!</b></li>
-      <li><b>*</b> Upload images of your pet!</li>
-      <li><b>*</b> View maps that display locations of potential adoptions!</li>
-      <li><b>*</b> Match and chat with other nearby users to set up playdates!</li>
-      <li><b>*</b> Match pets with potential pet owners to set up adoption!</li>
-      <li><b>*</b> View maps that display dog parks within the user’s location!</li>
-    </ul>
-  </p>
 
+    <div id="petBanner"></div>
 
-  <div id="block">
-    <img src="blackAsset2@3x.png" id="logo" />
-    <br>
-    <a href="register">register</a>
-    <a href="login">login</a>
+    <main>
+      <h2> Welcome back, <span class="company">{{user.name}}</span>!</h2>
+    </main>
+
+    <footer>
+      <br> Copyright © 2020 PET4PET <br>
+      <a href="mailto:pet4pet@domain.com">pet4pet@domain.com</a>
+    </footer>
   </div>
-</div>
-<footer>
-  <i> <small>&copy; Copyright 2019, PET4PET INC</small></i>
-</footer>
-</div>
+</body>
+{{else}}
+
+<body>
+  <div id="wrapper">
+    <header>
+      <h1><a href="/">Paw Me Maybe</a></h1>
+    </header>
+
+    <div id="petMatch">
+      <ul>
+        <li><span class="company">REGISTER NOW!</span></li>
+        <li><a href="register">register</a></li>
+        <li><a href="login">login</a></li>
+      </ul>
+    </div>
+
+    <div id="petBanner"></div>
+
+    <main>
+      <h2> We have everything you could <span class="company">pawsibly</span> need!</h2>
+      <p><span class="company">Paw Me Maybe</span> is a social media site for pet owners. Here, you can connect with
+        nearby pet owners, explore our 'adopt' messageboard, and find the best <i>match</i> for the special pet in your
+        life!
+      </p>
+      <ul>
+        <li>*  Create your own <b>Pet Profile!</b></li>
+        <li>*  Upload images of your pet!</li>
+        <li>*  View maps that display locations of potential adoptions!</li>
+        <li>*  Match and chat with other nearby users to set up playdates!</li>
+        <li>*  Match pets with potential pet owners to set up adoptions!</li>
+        <li>*  View maps that display dog parks within the user’s location!</li>
+      </ul>
+    </main>
+
+    <footer>
+      <br> Copyright © 2020 PET4PET <br>
+      <a href="mailto:pet4pet@domain.com">pet4pet@domain.com</a>
+    </footer>
+  </div>
+</body>
 {{/if}}
+
+</html>
