@@ -1,21 +1,45 @@
-<link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/style.css">
-<div class = "input_field">
-<h1>login</h1 >
-<body class = "input_field">
-        <form action="/login" method="POST">
-    <div>
-        <div>
-            <label for="email">email</label>
-            <input type="email" name="email" id="email" class = "input_box"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paw Me Maybe</title>
+    <link rel="stylesheet" type="text/css" href="index_page.css">
+    <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Alata%7CRoboto&display=swap" rel="stylesheet">
+</head>
+{{!--
+<link rel="stylesheet" type="text/css" href="/style.css"> --}}
+
+
+<body class="input_field">
+    <div id="wrapper">
+        <header>
+            <h1>login</h1>
+        </header>
+
+        <div id="petMatch">
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="register">register</a></li>
+            </ul>
         </div>
-        <div>
-            <label for="password">password</label>
-            <input type="password" name="password" id="password" class = "input_box">
-        </div>
-        <button type="submit" class = "input_button">login</button>
-     </div>
-     </form>
-     <a href="/">home</a>
-     <a href="register">register</a>
+
+        <main>
+            <form action="/login" method="POST">
+                <div>
+                    <div>
+                        <label for="email">email</label>
+                        <input type="email" name="email" id="email" class="input_box" />
+                    </div>
+                    <div>
+                        <label for="password">password</label>
+                        <input type="password" name="password" id="password" class="input_box">
+                    </div>
+                    <button type="submit" class="input_button">login</button>
+                </div>
+            </form>
+
+        </main>
+    </div>
 </body>
