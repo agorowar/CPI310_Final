@@ -394,7 +394,7 @@ app.post("/petImage", async(req,res)=>{
 app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const user = await db.all("SELECT * FROM users");
+    const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
     if (!token) {
         res.redirect("/login?from=matching")
