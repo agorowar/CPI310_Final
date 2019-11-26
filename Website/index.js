@@ -91,7 +91,7 @@ const petUpload = multer({
     }
 
     //.single uploads one image at a time, use array for multiple image uploading
-}).array('myImage',3);
+}).single('myImage');
 
 //check for filetypes
 function checkFileType(file, cb){
@@ -118,7 +118,6 @@ function checkFileType(file, cb){
     }
 }
 
-<<<<<<< HEAD
 //Replace filepath in directory with defined filepath with dirname
 app.get('/profileimages/*', async (req, res) => {
 
@@ -134,13 +133,13 @@ app.get('/profileimages/*', async (req, res) => {
 app.get('/petimages/*', async (req, res) => {
 
     //Replace filepath with new filepath
+    let filePathtest = req.path;
+    console.log("fptest",filePathtest)
     let filePath = req.path.replace("/petimages/", "")
     console.log("fp", filePath)
     res.sendFile(__dirname + "/public/petUploads/" + filePath)
 })
 
-=======
->>>>>>> 4528dd2ce01c6f85805402246db3a4e329a133a6
 app.use(authorize);
 
 // images
@@ -234,27 +233,10 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
-//Replace filepath in directory with defined filepath with dirname
-app.get('/profileimages/*', async (req, res) => {
-
-    //Replace filepath with new filepath
-    let filePath = req.path.replace("/profileimages/", "")
-    console.log("fp", filePath)
-    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
-})
-
-//Replace filepath in directory with defined filepath with dirname
-app.get('/petimages/*', async (req, res) => {
-
-    //Replace filepath with new filepath
-    let filePath = req.path.replace("/petimages/", "")
-    console.log("fp", filePath)
-    res.sendFile(__dirname + "/public/petUploads/" + filePath)
-})
 
 app.get("/profile", async(req, res) => {
     const db = await dbPromise;
-    const token = req.cookies.authToken;
+    const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages");
     if (!token) {
         res.redirect("/login?from=profile")
@@ -381,6 +363,7 @@ app.get("/petImage",(req,res)=>{
 });
 
 app.post("/petImage", async(req,res)=>{
+    const db = await dbPromise;
     //Check for errors with image upload
     petUpload(req,res, async(err)=>{
         if(err){
@@ -392,17 +375,17 @@ app.post("/petImage", async(req,res)=>{
         //else if there are no errors
         } else{
             //save filepath
-            const fileNames = req.files.filename;
-            console.log("read fileNames: " + fileNames);
+            const fileName = req.file.filename;
+            console.log("read fileNames: " + fileName);
             
-            const petId = await db.get("SELECT * FROM pets");
+            const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.email);
 
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
             await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
         
             //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileNames,petId.id);
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
             res.redirect("petProfile");
         }   
     });
