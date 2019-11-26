@@ -118,6 +118,29 @@ function checkFileType(file, cb){
     }
 }
 
+<<<<<<< HEAD
+//Replace filepath in directory with defined filepath with dirname
+app.get('/profileimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePathtest = req.path;
+    console.log("fptest",filePathtest)
+    let filePath = req.path.replace("/profileimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
+})
+
+//Replace filepath in directory with defined filepath with dirname
+app.get('/petimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/petimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/petUploads/" + filePath)
+})
+
+=======
+>>>>>>> 4528dd2ce01c6f85805402246db3a4e329a133a6
 app.use(authorize);
 
 // images
@@ -208,67 +231,6 @@ app.post("/register", async(req, res) => {
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
     res.cookie("authToken", token);
-
-
-    /*
-    Add temp profiles for matching tests
-    ****
-    ****
-    */
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
-        "Bon Jovi",
-        "bon@jovi.com",
-        "NJ",
-        "I'm a cowboy. On a steel horse I ride"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Waffles", 
-        "dog", 
-        "m",
-        "2", 
-        "Excitable and freindly", 
-        "spayed",
-        "bon@jovi.com"
-    );
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
-        "Tom Brady",
-        "tom@brady.com",
-        "MA",
-        "I am Tom Brady"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Eno", 
-        "dog", 
-        "f",
-        "4", 
-        "Calm and loyal", 
-        "spayed",
-        "tom@brady.com"
-    );
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?,?);",
-        "Napoleon Dynamite",
-        "napoleon@dynamite.com",
-        "ID",
-        "Vote for pedro"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Herm", 
-        "cat", 
-        "f",
-        "8", 
-        "Playfull and clumsy", 
-        "spayed",
-        "napoleon@dynamite.com"
-    );
-    //End temp profiles
-
-
     res.redirect("/");
 });
 
@@ -430,8 +392,8 @@ app.post("/petImage", async(req,res)=>{
         //else if there are no errors
         } else{
             //save filepath
-            const fileName = req.files.filename;
-            console.log("read fileName: " + fileName);
+            const fileNames = req.files.filename;
+            console.log("read fileNames: " + fileNames);
             
             const petId = await db.get("SELECT * FROM pets");
 
@@ -440,7 +402,7 @@ app.post("/petImage", async(req,res)=>{
             await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
         
             //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileNames,petId.id);
             res.redirect("petProfile");
         }   
     });
