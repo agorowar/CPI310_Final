@@ -71,9 +71,6 @@ const profileUpload = multer({
     //Set storage to storage engine
     storage: profileStorage,
 
-    //Set file size limit
-    limits:{fileSize: 1000000},
-
     //Check what files should be uploaded
     fileFilter: function(req, file, cb){
       checkFileType(file, cb);
@@ -87,9 +84,6 @@ const petUpload = multer({
 
     //Set storage to storage engine
     storage: petStorage,
-
-    //Set file size limit
-    limits:{fileSize: 1000000},
 
     //Check what files should be uploaded
     fileFilter: function(req, file, cb){
@@ -214,6 +208,33 @@ app.post("/register", async(req, res) => {
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
     res.cookie("authToken", token);
+    /*
+    Add temp profiles for matching tests
+    ****
+    ****
+    */
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Bon Jovi",
+        "bon@jovi.com",
+        "NJ",
+        "I'm a cowboy. On a steel horse I ride"
+    );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Tom Brady",
+        "tom@brady.com",
+        "MA",
+        "I am Tom Brady"
+    );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?,?);",
+        "Napoleon Dynamite",
+        "napoleon@dynamite.com",
+        "ID",
+        "Vote for pedro"
+    );
+    //End temp profiles
     res.redirect("/");
 });
 
