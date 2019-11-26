@@ -24,19 +24,19 @@ app.use(cookieParser());
 const authorize = async(req, res, next) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    console.log("token from authorize: ", token)
+    //console.log("token from authorize: ", token)
     if (!token) {
         return next();
     }
 
     const authToken = await db.get("SELECT * FROM authToken WHERE token=?", token)
-    console.log("authToken from authorize ", authToken)
+    //console.log("authToken from authorize ", authToken)
     if (!authToken) {
         return next();
     }
 
     const user = await db.get("SELECT * FROM users WHERE id=?", authToken.userId);
-    console.log("user from authorize ", user);
+    //console.log("user from authorize ", user);
     req.user = user;
     next();
 };
@@ -45,26 +45,26 @@ const authorize = async(req, res, next) => {
 const profileStorage = multer.diskStorage({
 
     //Set where uploaded images are stored
-    destination: 'public/profileUploads/',
+    destination: './public/profileUploads/',
 
     //Callback file name into storage
     filename: function(req, file, cb){
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-
+/*
 //Storage system with Multer
 const petStorage = multer.diskStorage({
 
     //Set where uploaded images are stored
-    destination: 'public/petUploads/',
+    destination: './public/petUploads/',
 
     //Callback file name into storage
     filename: function(req, file, cb){
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-
+*/
 //inital upload
 const profileUpload = multer({
 
@@ -78,7 +78,7 @@ const profileUpload = multer({
 
     //.single uploads one image at a time, use array for multiple image uploading
 }).single('myImage');
-
+/*
 //inital upload
 const petUpload = multer({
 
@@ -92,7 +92,7 @@ const petUpload = multer({
 
     //.single uploads one image at a time, use array for multiple image uploading
 }).array('myImage',3);
-
+*/
 //check for filetypes
 function checkFileType(file, cb){
 
@@ -118,6 +118,26 @@ function checkFileType(file, cb){
     }
 }
 
+//Replace filepath in directory with defined filepath with dirname
+app.get('/profileimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePathtest = req.path;
+    console.log("fptest",filePathtest)
+    let filePath = req.path.replace("/profileimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
+})
+/*
+//Replace filepath in directory with defined filepath with dirname
+app.get('/petimages/*', async (req, res) => {
+
+    //Replace filepath with new filepath
+    let filePath = req.path.replace("/petimages/", "")
+    console.log("fp", filePath)
+    res.sendFile(__dirname + "/public/petUploads/" + filePath)
+})
+*/
 app.use(authorize);
 
 // images
@@ -211,28 +231,11 @@ app.post("/register", async(req, res) => {
     res.redirect("/");
 });
 
-//Replace filepath in directory with defined filepath with dirname
-app.get('/profileimages/*', async (req, res) => {
-
-    //Replace filepath with new filepath
-    let filePath = req.path.replace("/profileimages/", "")
-    console.log("fp", filePath)
-    res.sendFile(__dirname + "/public/profileUploads/" + filePath)
-})
-
-//Replace filepath in directory with defined filepath with dirname
-app.get('/petimages/*', async (req, res) => {
-
-    //Replace filepath with new filepath
-    let filePath = req.path.replace("/petimages/", "")
-    console.log("fp", filePath)
-    res.sendFile(__dirname + "/public/petUploads/" + filePath)
-})
-
 app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const images = await db.all("SELECT * FROM profileImages");
+    const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
+    console.log("images", images)
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
@@ -257,8 +260,8 @@ app.post("/ownerForm", async(req, res) => {
     if (error) {
         return res.render("ownerForm", { error: error });
     }
-    const userId = await db.get("SELECT * FROM users");
-    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,userId.id);
+    //const userId = await db.get("SELECT * FROM users");
+    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,req.user.id);
     res.redirect("profile");
 });
 
@@ -282,14 +285,12 @@ app.post("/ownerImage", async(req,res)=>{
             const fileName = req.file.filename;
             console.log("read fileName: " + fileName);
     
-            const userId = await db.get("SELECT * FROM users");
-    
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
-            await db.run("DELETE FROM profileImages WHERE userId = ?",userId.id);
+            await db.run("DELETE FROM profileImages WHERE userId = ?",req.user.id);
     
             //insert filepath into database
-            await db.run("INSERT INTO profileImages (fileName,userId) VALUES (?,?)",fileName,userId.id);
+            await db.run("INSERT INTO profileImages (fileName,userId) VALUES (?,?)",fileName,req.user.id);
             res.redirect("profile");
         }
     });
@@ -299,8 +300,8 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pet = await db.all("SELECT * FROM pets");
-    const images = await db.all("SELECT * FROM petImages");
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner=?", req.user.email);
+    const images = await db.all("SELECT * FROM petImages WHERE petId=?",pet.id);
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
@@ -372,7 +373,7 @@ app.post("/petImage", async(req,res)=>{
             const fileName = req.files.filename;
             console.log("read fileName: " + fileName);
             
-            const petId = await db.get("SELECT * FROM pets");
+            const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.email);
 
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
