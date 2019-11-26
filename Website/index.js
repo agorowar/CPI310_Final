@@ -342,9 +342,9 @@ app.post("/new-pet", async(req, res) => {
     if (!petbio) {
         error = "pet bio field is required";
     }
-    if (!otherpetinfo) {
-        error = "otehr pet info field is required";
-    }
+    // if (!otherpetinfo) {
+    //     error = "other pet info field is required";
+    // } Not required because the user can leave the boxes unchecked
     if (error) {
         return res.render("new-pet", { error: error });
     }
