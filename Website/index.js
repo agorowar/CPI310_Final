@@ -395,11 +395,11 @@ app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const user = await db.all("SELECT * FROM users");
-    const pet = await db.all("SELECT * FROM pets");
+    // const pet = await db.all("SELECT * FROM pets");
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching");
+        res.render("matching", {user: user});
     }
 });
 //Setups database what port is being listened on
