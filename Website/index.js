@@ -385,15 +385,17 @@ app.post("/petImage", async(req,res)=>{
     });
 })
 
-app.get("/matching", (req, res) => {
+app.get("/matching", async(req, res) => {
+    const db = await dbPromise;
     const token = req.cookies.authToken;
+    const user = await db.all("SELECT * FROM users");
+    const pet = await db.all("SELECT * FROM pets");
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
         res.render("matching");
     }
 });
-
 //Setups database what port is being listened on
 const setup = async() => {
     const db = await dbPromise;
