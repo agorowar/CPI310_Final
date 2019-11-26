@@ -11,6 +11,12 @@
     height:360px;
 }
 
+h3{
+    font-family: 'Roboto', sans-serif;
+}
+h4 {
+    font-family: 'Alata', sans-serif;
+}
 h1 {
     font-family: 'Alata', sans-serif;
 }
@@ -25,7 +31,7 @@ body {
     background-color: #E08457;
     text-align: center;
     font-size: 150%;
-    color: #3B5D5B;
+    color: #ffff;
 }
 .input_button {
     font-family: 'Roboto', sans-serif;
