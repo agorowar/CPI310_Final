@@ -63,7 +63,7 @@ body{
       <div class="wrapper">
         <div class ="left">
           {{#each images}}
-          <img src="/profileimages/{{this.filename}}" width="200">
+          <img src="/profileimages/{{this.fileName}}" width="200">
           {{/each}}
           <h4>{{user.name}}</h4>
           <p>Owner</p>	
@@ -86,14 +86,20 @@ body{
           </div>
           <div class="projects">
               <h3>Pets</h3>
+              {{#each pets}}
               <div class="info_data">
                 <div class="data">
-                  <h4>Cooper</h4>
-                  <img src="cooper.jpg" alt="" width="100">
+                  <h4>{{this.petname}}</h4>
+                  {{/each}}
+                  
+                  {{#each petImages}}
+                  <img src="/petimages/{{this.filename}}" alt="" width="100">
+                  {{/each}}
                 </div>
+                
                 <div class="data">
-                    <h4>Waffles</h4>
-                    <img src="waffles.jpeg" alt="" width="100">
+                    <h4></h4>
+                    <img src="" alt="" width="100">
                 </div>
               </div>
             </div>
