@@ -13,7 +13,7 @@
 </head>
 
 {{#if user}}
-
+{{!-- 
 <!-- add navbar to the top of the body -->
 <nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779; font-family: 'Alata', sans-serif;">
     <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
@@ -40,16 +40,65 @@
       </ul>
     </div>
   </nav>
-<!-- end of nav -->
-<div id="CONTENT">
-  <h2>
-    Welcome back, {{user.name}}!
-  </h2>
-  <br>
-  <p>
-    <i>What do you want to do today...?</i>
-  </p>
-</div>
+<!-- end of nav --> --}}
+
+<!--Welcome back, {{user.name}}! -->
+<body>
+    <div id="wrapper">
+        <header>
+            <h1><a href="/">Paw Me Maybe</a></h1>
+             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #455758;">
+                <a class="navbar-brand" href="/">Paw Me Maybe</a>
+                <!--title on the navbar that also functions as a link to the homepage -->
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile">Your Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="petProfile">Your Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="matching">Match with Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div id="petMatch">
+            <ul>
+                <li>What</li>
+                <li>do</li>
+                <li>you</li>
+                <li>want</li>
+                <li>to</li>
+                <li>do</li>
+                <li>today?</li>
+            </ul>
+        </div> 
+
+        <div id="petBanner"></div>
+
+        <main>
+            <h2> Welcome back, <span class="company">{{user.name}}</span>!</h2>
+        </main>
+
+        <footer>
+            <br> Copyright © 2020 PET4PET <br>
+            <a href="mailto:pet4pet@domain.com">pet4pet@domain.com</a>
+        </footer>
+    </div>
+</body>
 {{else}}
 
 <body>
@@ -86,10 +135,9 @@
 
         <div id="petMatch">
             <ul>
-                <li>Match</li>
-                <li>your</li>
-                <li>pets</li>
-                <li>today!</li>
+                <li><span class="company">REGISTER NOW!</span></li>
+                <li><a href="register">register</a></li>
+                <li><a href="login">login</a></li>
             </ul>
         </div> 
 
@@ -107,12 +155,6 @@
                 <li> Match pets with potential pet owners to set up adoptions!</li>
                 <li> View maps that display dog parks within the user’s location!</li>
             </ul>
-            <div id="contact">
-                <span class="company">REGISTER NOW</span>
-                <br>
-                <a href="register">register</a>
-                <a href="login">login</a>
-            </div>
         </main>
 
         <footer>
