@@ -215,57 +215,57 @@ app.post("/register", async(req, res) => {
     ****
     ****
     */
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
-        "Bon Jovi",
-        "bon@jovi.com",
-        "NJ",
-        "I'm a cowboy. On a steel horse I ride"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Waffles", 
-        "dog", 
-        "m",
-        "2", 
-        "Excitable and freindly", 
-        "spayed",
-        "bon@jovi.com"
-    );
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
-        "Tom Brady",
-        "tom@brady.com",
-        "MA",
-        "I am Tom Brady"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Eno", 
-        "dog", 
-        "f",
-        "4", 
-        "Calm and loyal", 
-        "spayed",
-        "tom@brady.com"
-    );
-    await db.run(
-        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?,?);",
-        "Napoleon Dynamite",
-        "napoleon@dynamite.com",
-        "ID",
-        "Vote for pedro"
-    );
-    await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
-        "Herm", 
-        "cat", 
-        "f",
-        "8", 
-        "Playfull and clumsy", 
-        "spayed",
-        "napoleon@dynamite.com"
-    );
+    // await db.run(
+    //     "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+    //     "Bon Jovi",
+    //     "bon@jovi.com",
+    //     "NJ",
+    //     "I'm a cowboy. On a steel horse I ride"
+    // );
+    // await db.run(
+    //     "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
+    //     "Waffles", 
+    //     "dog", 
+    //     "m",
+    //     "2", 
+    //     "Excitable and freindly", 
+    //     "spayed",
+    //     "bon@jovi.com"
+    // );
+    // await db.run(
+    //     "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+    //     "Tom Brady",
+    //     "tom@brady.com",
+    //     "MA",
+    //     "I am Tom Brady"
+    // );
+    // await db.run(
+    //     "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
+    //     "Eno", 
+    //     "dog", 
+    //     "f",
+    //     "4", 
+    //     "Calm and loyal", 
+    //     "spayed",
+    //     "tom@brady.com"
+    // );
+    // await db.run(
+    //     "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?,?);",
+    //     "Napoleon Dynamite",
+    //     "napoleon@dynamite.com",
+    //     "ID",
+    //     "Vote for pedro"
+    // );
+    // await db.run(
+    //     "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
+    //     "Herm", 
+    //     "cat", 
+    //     "f",
+    //     "8", 
+    //     "Playfull and clumsy", 
+    //     "spayed",
+    //     "napoleon@dynamite.com"
+    // );
     //End temp profiles
 
 
