@@ -71,9 +71,6 @@ const profileUpload = multer({
     //Set storage to storage engine
     storage: profileStorage,
 
-    //Set file size limit
-    limits:{fileSize: 1000000},
-
     //Check what files should be uploaded
     fileFilter: function(req, file, cb){
       checkFileType(file, cb);
@@ -87,9 +84,6 @@ const petUpload = multer({
 
     //Set storage to storage engine
     storage: petStorage,
-
-    //Set file size limit
-    limits:{fileSize: 1000000},
 
     //Check what files should be uploaded
     fileFilter: function(req, file, cb){
