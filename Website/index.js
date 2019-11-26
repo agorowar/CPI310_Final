@@ -263,7 +263,7 @@ app.post("/ownerForm", async(req, res) => {
         return res.render("ownerForm", { error: error });
     }
     const userId = await db.get("SELECT * FROM users");
-    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,userId.id);
+    await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,req.user.id);
     res.redirect("profile");
 });
 
