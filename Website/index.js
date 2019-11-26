@@ -208,6 +208,33 @@ app.post("/register", async(req, res) => {
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
     res.cookie("authToken", token);
+    /*
+    Add temp profiles for matching tests
+    ****
+    ****
+    */
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Bon Jovi",
+        "bon@jovi.com",
+        "NJ",
+        "I'm a cowboy. On a steel horse I ride"
+    );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Tom Brady",
+        "tom@brady.com",
+        "MA",
+        "I am Tom Brady"
+    );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?,?);",
+        "Napoleon Dynamite",
+        "napoleon@dynamite.com",
+        "ID",
+        "Vote for pedro"
+    );
+    //End temp profiles
     res.redirect("/");
 });
 
