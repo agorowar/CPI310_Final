@@ -237,11 +237,13 @@ app.post("/register", async(req, res) => {
 app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken
-    const images = await db.all("SELECT * FROM profileImages");
+    const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
+    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
+    const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",pets.id);
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
-        res.render("profile", {user: req.user, images});
+        res.render("profile", {user: req.user, pets: pets, petImages, images});
     }
 });
 
@@ -394,7 +396,7 @@ app.post("/petImage", async(req,res)=>{
 app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const user = await db.all("SELECT * FROM users");
+    const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
     if (!token) {
         res.redirect("/login?from=matching")
