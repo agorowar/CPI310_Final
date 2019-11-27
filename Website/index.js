@@ -226,6 +226,23 @@ app.post("/register", async(req, res) => {
         email,
         pwHash
     );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Napoleon Dynamite",
+        "napolean@dynamite.com",
+        "ID",
+        "Vote for Pedro"
+    );
+    await db.run(
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ? ,?);",
+        "Napoleon Dynamite Jr.",
+        "dog",
+        "m",
+        "2",
+        "Likes tots",
+        "spayed",
+        "napolean@dynamite.com"
+    );
     const user = await db.get("SELECT name,id FROM users WHERE email=?", email);
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
