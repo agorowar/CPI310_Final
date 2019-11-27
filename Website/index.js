@@ -323,7 +323,7 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pet = await db.all("SELECT * FROM pets");
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
     const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
