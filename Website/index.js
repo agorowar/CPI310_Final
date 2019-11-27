@@ -254,7 +254,7 @@ app.post("/register", async(req, res) => {
 app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken
-    const images = await db.all("SELECT * FROM profileImages");
+    const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
@@ -322,11 +322,7 @@ app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
-<<<<<<< HEAD
-    const images = await db.all("SELECT * FROM petImages WHERE petId=?", pet.id);
-=======
     const images = await db.all("SELECT * FROM petImages");
->>>>>>> 1fc3100ad04af43851c185656602aa97632dba22
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
