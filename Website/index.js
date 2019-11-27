@@ -226,6 +226,23 @@ app.post("/register", async(req, res) => {
         email,
         pwHash
     );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Napoleon Dynamite",
+        "napolean@dynamite.com",
+        "ID",
+        "Vote for Pedro"
+    );
+    await db.run(
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ? ,?);",
+        "Napoleon Dynamite Jr.",
+        "dog",
+        "m",
+        "2",
+        "Likes tots",
+        "spayed",
+        "napolean@dynamite.com"
+    );
     const user = await db.get("SELECT name,id FROM users WHERE email=?", email);
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
@@ -238,12 +255,10 @@ app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
-    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
-    const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",pets.id);
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
-        res.render("profile", {user: req.user, pets: pets, petImages, images});
+        res.render("profile", {user: req.user, images});
     }
 });
 
@@ -306,7 +321,7 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pet = await db.all("SELECT * FROM pets");
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
     const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
