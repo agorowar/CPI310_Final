@@ -348,13 +348,12 @@ app.post("/new-pet", async(req, res) => {
     }
     //const petOwner = db.get("SELECT * FROM users WHERE id=?", user.id);
     await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
+        "INSERT INTO pets (petname, species, gender, age, petbio, petOwner) VALUES (?, ?, ?, ?, ?,?)",
         petname, 
         species, 
         gender,
         age, 
         petbio, 
-        otherpetinfo,
         req.user.email
     );
     res.redirect("petProfile");
@@ -397,11 +396,12 @@ app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
-    // const pet = await db.all("SELECT * FROM pets");
+    const image = await db.all("SELECT * FROM profileImages WHERE userId!=?",req.user.id);
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.email);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching", {user: user});
+        res.render("matching", {user: user, image, pet});
     }
 });
 //Setups database what port is being listened on

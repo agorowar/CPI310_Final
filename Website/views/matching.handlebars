@@ -53,15 +53,18 @@
                 <div class = "container" id = "container1"> <!-- match container -->
                     <div class = "owner"> <!-- owner container -->
                         <div class = "ownerPic"> <!-- owner picture -->
-                            <!-- needs to add this profile's pic to page -->
+                            {{#each image}}
+                            <img src="/profileimages/{{this.fileName}}" width="200">
+                            {{/each}}
                         </div>
     
                         <div class = "ownerInfo"> <!-- owner info -->
-                            <!-- needs to add this profile's info to page -->
-                            <p>{{this.bio}}</p>
+                            <p>Name:{{this.name}}</p>
+                            <p>Bio:{{this.bio}}</p>
                         </div>
                     </div>
-    
+                    {{/each}}
+                    {{#each pet}}
                     <div class = "pets"> <!-- pets container -->
                         <!-- pet 1 -->
                         <div class = "petContainer"> 
@@ -72,11 +75,11 @@
     
                             <div class = "petInfo"> <!-- pet1 info -->
                                 <!-- needs to add this profile's 1st pet's info to page -->
-                                <p></p>
+                                <p>{{this.petbio}}</p>
                             </div>
                         </div>
                     </div>
-    
+                    {{/each}}
                     <div class = "buttons"> <!-- buttons container -->
                         <div class = "buttonContainer"> <!-- button1 -->
                             <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
@@ -89,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
+                
                 
         </body>
     </html>
