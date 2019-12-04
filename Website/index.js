@@ -255,10 +255,12 @@ app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
+    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
+    const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",pets.id);
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
-        res.render("profile", {user: req.user, images});
+        res.render("profile", {user: req.user, pets: pets, petImages, images});
     }
 });
 
@@ -287,6 +289,8 @@ app.post("/ownerForm", async(req, res) => {
 app.get("/ownerImage", (req,res)=>{
     res.render("ownerImage");
 });
+
+
 
 app.post("/ownerImage", async(req,res)=>{
     const db = await dbPromise;
@@ -363,12 +367,13 @@ app.post("/new-pet", async(req, res) => {
     }
     //const petOwner = db.get("SELECT * FROM users WHERE id=?", user.id);
     await db.run(
-        "INSERT INTO pets (petname, species, gender, age, petbio, petOwner) VALUES (?, ?, ?, ?, ?,?)",
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
         petname, 
         species, 
         gender,
         age, 
         petbio, 
+        otherpetinfo,
         req.user.email
     );
     res.redirect("petProfile");
@@ -411,12 +416,22 @@ app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
-    const image = await db.all("SELECT * FROM profileImages WHERE userId!=?",req.user.id);
-    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.email);
+    // const pet = await db.all("SELECT * FROM pets");
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching", {user: user, image, pet});
+        res.render("matching", {user: user});
+    }
+});
+app.get("/userMatches", async(req,res)=>{
+    const db = await dbPromise;
+    const token = req.cookies.authToken;
+    const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
+    // const pet = await db.all("SELECT * FROM pets");
+    if (!token) {
+        res.redirect("/login?from=userMatches")
+    } else {
+        res.render("userMatches", {user: user});
     }
 });
 //Setups database what port is being listened on

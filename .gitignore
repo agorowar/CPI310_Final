@@ -406,3 +406,5 @@ Website/node_modules/wrappy/package.json
 Website/node_modules/write-file-atomic/package.json
 Website/node_modules/xdg-basedir/package.json
 Website/node_modules/yallist/package.json
+*.node
+*.json
