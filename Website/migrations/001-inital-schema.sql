@@ -39,9 +39,27 @@ CREATE TABLE authToken(
     FOREIGN KEY(userId) REFERENCES users(id)
 );
 
+CREATE TABLE matches(
+    id INTEGER PRIMARY KEY,
+    pet1 INTEGER,
+    pet2 INTEGER,
+    FOREIGN KEY(pet1) REFERENCES pets(id),
+    FOREIGN KEY(pet2) REFERENCES pets(id)
+);
+
+CREATE TABLE potMatch(
+    id INTEGER PRIMARY KEY,
+    initialPet INTEGER,
+    matchedPet INTEGER,
+    FOREIGN KEY(initialPet) REFERENCES pets(id),
+    FOREIGN KEY(matchedPet) REFERENCES pets(id)
+);
+
 -- Down
 DROP TABLE users;
 DROP TABLE profileImages;
 DROP TABLE petImages;
 DROP TABLE pets;
 DROP TABLE authToken;
+DROP TABLE matches;
+DROP TABLE potMatch;
