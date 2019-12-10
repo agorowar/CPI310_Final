@@ -255,7 +255,7 @@ app.get("/profile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
-    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
+    const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.id);
     const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",pets.id);
     if (!token) {
         res.redirect("/login?from=profile")
@@ -325,8 +325,8 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.email);
-    const images = await db.all("SELECT * FROM petImages");
+    const pet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
+    const images = await db.all("SELECT * FROM petImages WHERE petId=?", pet.id);
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
@@ -374,7 +374,7 @@ app.post("/new-pet", async(req, res) => {
         age, 
         petbio, 
         otherpetinfo,
-        req.user.email
+        req.user.id
     );
     res.redirect("petProfile");
 });
@@ -399,7 +399,7 @@ app.post("/petImage", async(req,res)=>{
             const fileName = req.file.filename;
             console.log("read fileNames: " + fileName);
             
-            const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.email);
+            const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
 
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
@@ -415,25 +415,38 @@ app.post("/petImage", async(req,res)=>{
 app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
-    // const pet = await db.all("SELECT * FROM pets");
+    //Don't select users that the current user have already matched with in the matched table
+    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching", {user: user});
+        res.render("matching", {user: pet});
     }
 });
+
+app.post("/matching", async(req,res)=>{
+    const db = await dbPromise;
+    const { like, dislike } = req.body;
+    //Check if the chosen user has been already liked
+    //if pet is in potential matches and user likes, delete potential match and add both pets to matched table
+    //else, create a potential match
+    //Add to matched table only if both pets like eachother, otherwise delete potential match
+    //Create sql table for messages between two users when both users are added to matched table
+});
+
 app.get("/userMatches", async(req,res)=>{
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
+    //Display available chats for the current user. Pull from all messaging tables the current user is in
     if (!token) {
         res.redirect("/login?from=userMatches")
     } else {
         res.render("userMatches", {user: user});
     }
 });
+
 //Setups database what port is being listened on
 const setup = async() => {
     const db = await dbPromise;

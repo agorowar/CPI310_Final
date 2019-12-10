@@ -54,7 +54,7 @@
                     <div class = "petContainer"> <!-- pets container -->
                         <div class = "petPic"> <!-- pet1 pic -->
                             <!-- needs to add this profile's 1st pet's pic to page -->
-                            <img src= {{this.petPic}}>
+                            <img src= "/petimages/{{this.fileName}}">
                         </div>
     
                         <div class = "petInfo"> <!-- pet1 info -->
@@ -66,12 +66,12 @@
                 
                     <div class = "buttons"> <!-- buttons container -->
                         <div class = "buttonContainer"> <!-- button1 -->
-                            <input type ="image" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
+                            <input type ="image" id="like" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
                             <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
                         </div>
     
                         <div class = "buttonContainer"> <!-- butoon2 -->
-                            <input type ="image" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
+                            <input type ="image" id="dislike" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
                             <!-- needs to remove container and then add new container with new profile at bottom of page -->
                         </div>
                     </div>

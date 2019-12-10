@@ -30,7 +30,7 @@ CREATE TABLE pets
     petbio STRING, 
     otherpetinfo STRING,
     petOwner STRING,
-    FOREIGN KEY(petOwner) REFERENCES users(email)
+    FOREIGN KEY(petOwner) REFERENCES users(id)
 );
 
 CREATE TABLE authToken(
