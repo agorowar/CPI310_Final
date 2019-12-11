@@ -595,3 +595,6 @@ Website/node_modules/.bin/atob
 Website/node_modules/.bin/detect-libc
 Website/node_modules/.bin/detect-libc
 Website/node_modules/.bin/detect-libc
+*.json
+Website/data.sqlite
+Website/.DS_Store
