@@ -29,7 +29,7 @@ CREATE TABLE pets
     age INTEGER, 
     petbio STRING, 
     otherpetinfo STRING,
-    petOwner STRING,
+    petOwner INTEGER,
     FOREIGN KEY(petOwner) REFERENCES users(id)
 );
 

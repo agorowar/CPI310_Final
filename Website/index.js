@@ -325,8 +325,8 @@ app.post("/ownerImage", async(req,res)=>{
 app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const pet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
-    const images = await db.all("SELECT * FROM petImages WHERE petId=?", pet.id);
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.id);
+    const images = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
@@ -435,7 +435,8 @@ app.post("/likeMatching", async(req,res)=>{
     const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     await db.run(`SELECT * FROM matches CASE 
     WHEN EXISTS(SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) THEN INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?
-    ELSE INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)`,
+    ELSE INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)
+    END`,
     pet.id,
     userPet.id,
     pet.id,
