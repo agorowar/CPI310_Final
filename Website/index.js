@@ -416,6 +416,7 @@ app.get("/matching", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     //Don't select users that the current user have already matched with in the matched table
+    //Don't select users that the current user have arealdy matched with in the dislike table
     const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
@@ -424,14 +425,41 @@ app.get("/matching", async(req, res) => {
     }
 });
 
-app.post("/matching", async(req,res)=>{
+app.post("/likeMatching", async(req,res)=>{
     const db = await dbPromise;
-    const { like, dislike } = req.body;
     //Check if the chosen user has been already liked
     //if pet is in potential matches and user likes, delete potential match and add both pets to matched table
     //else, create a potential match
     //Add to matched table only if both pets like eachother, otherwise delete potential match
-    //Create sql table for messages between two users when both users are added to matched table
+    const userPet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
+    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
+    await db.run(`SELECT * FROM matches CASE 
+    WHEN EXISTS(SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) THEN INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?
+    ELSE INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)`,
+    pet.id,
+    userPet.id,
+    pet.id,
+    userPet.id,
+    pet.id,
+    userPet.id,
+    userPet.id,
+    pet.id
+    );
+    res.redirect("matching");
+});
+
+app.post("/dislikeMatching", async(req,res)=>{
+    const db = await dbPromise;
+    //Check if chosen pet has been already disliked
+    //If pet is in potential matces and user dislikes, delete potential match and add both pets to disliked table
+    //Add to disliked table once both users have made a choice
+    const userPet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
+    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
+    await db.run(`INSERT INTO dislikeMatch (pet1,pet2) VALUES (?,?)`,
+    userPet.id,
+    pet.id
+    );
+    res.redirect("matching");
 });
 
 app.get("/userMatches", async(req,res)=>{

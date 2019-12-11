@@ -65,15 +65,18 @@
                     </div>
                 
                     <div class = "buttons"> <!-- buttons container -->
+                    <form action="/likeMatching" method="POST">
                         <div class = "buttonContainer"> <!-- button1 -->
                             <input type ="image" id="like" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
                             <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
                         </div>
-    
+                    </form>
+                    <form action="/dislikeMatching" method="POST"></form>
                         <div class = "buttonContainer"> <!-- butoon2 -->
                             <input type ="image" id="dislike" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
                             <!-- needs to remove container and then add new container with new profile at bottom of page -->
                         </div>
+                    </form>
                     </div>
                 </div>
                 {{/each}}

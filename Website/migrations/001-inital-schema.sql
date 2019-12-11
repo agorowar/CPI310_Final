@@ -47,6 +47,14 @@ CREATE TABLE matches(
     FOREIGN KEY(pet2) REFERENCES pets(id)
 );
 
+CREATE TABLE dislikeMatch(
+    id INTEGER PRIMARY KEY,
+    pet1 INTEGER,
+    pet2 INTEGER,
+    FOREIGN KEY(pet1) REFERENCES pets(id),
+    FOREIGN KEY(pet2) REFERENCES pets(id)
+);
+
 CREATE TABLE potMatch(
     id INTEGER PRIMARY KEY,
     initialPet INTEGER,
@@ -62,4 +70,5 @@ DROP TABLE petImages;
 DROP TABLE pets;
 DROP TABLE authToken;
 DROP TABLE matches;
+DROP TABLE dislikeMatch;
 DROP TABLE potMatch;
