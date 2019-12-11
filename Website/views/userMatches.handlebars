@@ -1,4 +1,4 @@
-<DOCTYPE !HTML>
+DOCTYPE !HTML>
     <html>
         <head>
             <!-- add bootstrap, css and fonts to head -->
@@ -48,40 +48,39 @@
             </div>
 
             <div class = "feed" id = "feed">   <!-- feed -->
-                <!-- container 1-->
-                {{#each user}}
-                <div class = "container" id = "container1"> <!-- match container -->
-                    <div class = "owner"> <!-- owner container -->
-                        <div class = "ownerPic"> <!-- owner picture -->
-                            {{#each image}}
-                            <img src="/profileimages/{{this.fileName}}" width="200">
-                            {{/each}}
+                <!-- container 1 -->
+                {{#each pet}}
+                <div class = "container">
+                    <div class = "petContainer"> <!-- pets container -->
+                        <div class = "petPic"> <!-- pet1 pic -->
+                            <!-- needs to add this profile's 1st pet's pic to page -->
+                            <img src= "/petimages/{{this.fileName}}">
                         </div>
     
-                        <div class = "ownerInfo"> <!-- owner info -->
-                            <p>Name:{{this.name}}</p>
-                            <p>Bio:{{this.bio}}</p>
+                        <div class = "petInfo"> <!-- pet1 info -->
+                            <!-- needs to add this profile's 1st pet's info to page -->
+                            <h4>Name:{{this.petname}}</h4>
+                            <p>Bio:{{this.petbio}}</p>
                         </div>
                     </div>
-                    {{/each}}
-                    {{#each pet}}
-                    <div class = "pets"> <!-- pets container -->
-                        <!-- pet 1 -->
-                        <div class = "petContainer"> 
-                            <div class = "petPic"> <!-- pet1 pic -->
-                                <!-- needs to add this profile's 1st pet's pic to page -->
-                                <iframe height = 100% width = 100% frameborder="0"></iframe>
-                            </div>
-    
-                            <div class = "petInfo"> <!-- pet1 info -->
-                                <!-- needs to add this profile's 1st pet's info to page -->
-                                <p>Name:{{this.petname}}</p>
-                                <p>{{this.petbio}}</p>
-                            </div>
+                
+                    <div class = "buttons"> <!-- buttons container -->
+                    <form action="/likeMatching" method="POST">
+                        <div class = "buttonContainer"> <!-- button1 -->
+                            <input type ="image" id="like" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
+                            <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
                         </div>
+                    </form>
+                    <form action="/dislikeMatching" method="POST"></form>
+                        <div class = "buttonContainer"> <!-- butoon2 -->
+                            <input type ="image" id="dislike" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
+                            <!-- needs to remove container and then add new container with new profile at bottom of page -->
+                        </div>
+                    </form>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
+            </div>
                 
                 
         </body>

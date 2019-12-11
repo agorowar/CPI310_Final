@@ -241,7 +241,24 @@ app.post("/register", async(req, res) => {
         "2",
         "Likes tots",
         "spayed",
-        "napolean@dynamite.com"
+        "2"
+    );
+    await db.run(
+        "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
+        "Don Cheadle",
+        "don@cheadle.com",
+        "NY",
+        "Don"
+    );
+    await db.run(
+        "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ? ,?);",
+        "Don Cheadle Jr.",
+        "cat",
+        "f",
+        "2",
+        "don",
+        "spayed",
+        "3"
     );
     const user = await db.get("SELECT name,id FROM users WHERE email=?", email);
     const token = uuidv4();
@@ -417,11 +434,12 @@ app.get("/matching", async(req, res) => {
     const token = req.cookies.authToken;
     //Don't select users that the current user have already matched with in the matched table
     //Don't select users that the current user have arealdy matched with in the dislike table
-    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
+    //xconst pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching", {user: pet});
+        res.render("matching", {pet: pet});
     }
 });
 
@@ -466,13 +484,14 @@ app.post("/dislikeMatching", async(req,res)=>{
 app.get("/userMatches", async(req,res)=>{
     const db = await dbPromise;
     const token = req.cookies.authToken;
-    const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
+    //const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
     //Display available chats for the current user. Pull from all messaging tables the current user is in
     if (!token) {
         res.redirect("/login?from=userMatches")
     } else {
-        res.render("userMatches", {user: user});
+        res.render("userMatches", {pet: pet});
     }
 });
 
