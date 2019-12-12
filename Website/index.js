@@ -485,6 +485,7 @@ app.get("/userMatches", async(req,res)=>{
     //const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
     //Display available chats for the current user. Pull from all messaging tables the current user is in
+    const userEmails = await db.all("SELECT email FROM users WHERE id!=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=userMatches")
     } else {
