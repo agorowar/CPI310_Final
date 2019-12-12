@@ -60,7 +60,9 @@
                         <div class="petPic">
                             <!-- pet1 pic -->
                             <!-- needs to add this profile's 1st pet's pic to page -->
+                            {{#each images}}
                             <img src="/petimages/{{this.fileName}}">
+                            {{/each}}
                         </div>
 
                         <div class="petInfo">
