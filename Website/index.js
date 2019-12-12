@@ -451,28 +451,21 @@ app.post("/likeMatching", async(req,res)=>{
     //Add to matched table only if both pets like eachother, otherwise delete potential match
     const userPet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
     const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
-    if(await db.run(" SELECT * FROM matches WHERE EXISTS (SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) ",pet.id,userPet.id) == null)
+    /*if(await db.run(" SELECT * FROM matches WHERE EXISTS (SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) ",pet.id,userPet.id) == null)
     {
         await db.run("INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?",pet.id,userPet.id,pet.id,userPet.id)
     }
     else
     {
         await db.run("INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)",pet.id,userPet.id)
-    }
-    /*
-    await db.run(`
-    SELECT 
-        * 
-    FROM 
-        matches 
+    }*/
+    
+    /*await db.run(`
+    SELECT * FROM potMatch 
     CASE 
-    WHEN EXISTS(SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) 
-        THEN 
-        INSERT INTO matches (pet1,pet2) VALUES (?,?), 
-        DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?
-    ELSE 
-        INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)              
-    END`,
+    WHEN EXISTS(SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) THEN INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?
+    ELSE INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)              
+    END;`,
     pet.id,
     userPet.id,
     pet.id,
@@ -481,8 +474,18 @@ app.post("/likeMatching", async(req,res)=>{
     userPet.id,
     userPet.id,
     pet.id
+    );*/
+    const test = await db.get("SELECT initialPet, matchedPet FROM potMatch WHERE initialPet=? AND matchedPet=?",
+    pet.id,
+    userPet.id
     );
-    */
+    if(test != null){
+        await db.run("INSERT INTO matches (pet1,pet2) VALUES (?,?)",pet.id,userPet.id)
+        await db.run("DELETE FROm potMatch WHERE initalPet=? AND matchedPet=?",pet.id,userPet.id)
+    }
+    else{
+        await db.run("INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)",userPet.id,pet.id)
+    }
     res.redirect("matching");
 });
 
