@@ -1,4 +1,4 @@
-DOCTYPE !HTML>
+<!DOCTYPE HTML>
     <html>
         <head>
             <!-- add bootstrap, css and fonts to head -->
@@ -46,7 +46,9 @@ DOCTYPE !HTML>
             <div class = "top"> <!-- header -->
                 <h1>Your Matches</h1>
             </div>
-
+            {{#each user}}
+            <h4>{{this.email}}</h4>
+            {{/each}}
             <div class = "feed" id = "feed">   <!-- feed -->
                 <!-- container 1 -->
                 {{#each pet}}

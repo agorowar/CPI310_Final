@@ -435,8 +435,7 @@ app.get("/matching", async(req, res) => {
     //Don't select users that the current user have arealdy matched with in the dislike table
     //xconst pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     const pet = await db.all("SELECT * FROM pets WHERE petOwner!=? LIMIT 1",req.user.id);
-    const other = await db.get("SELECt * FROm users WHERE id!=?",req.user.id)
-    const images = await db.all("SELECT * FROM petImages WHERE petId!=?",other.id);
+    const images = await db.all("SELECT * FROM petImages WHERE petId!=? LIMIT 1",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
@@ -489,7 +488,7 @@ app.get("/userMatches", async(req,res)=>{
     if (!token) {
         res.redirect("/login?from=userMatches")
     } else {
-        res.render("userMatches", {pet1: pets1, pet2: pets2});
+        res.render("userMatches", {user: userEmails});
     }
 });
 
