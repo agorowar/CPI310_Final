@@ -418,7 +418,7 @@ app.post("/petImage", async(req,res)=>{
 
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
-            await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
+            await db.run("DELETE FROM petImages WHERE petId = ?",req.user.id);
         
             //insert filepath into database
             //await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
