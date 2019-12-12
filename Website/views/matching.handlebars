@@ -53,16 +53,20 @@
             <div class="feed" id="feed">
                 <!-- feed -->
                 <!-- container 1 -->
-                {{#each pet}}
+                
                 <div class="container">
                     <div class="petContainer">
                         <!-- pets container -->
                         <div class="petPic">
                             <!-- pet1 pic -->
                             <!-- needs to add this profile's 1st pet's pic to page -->
-<img src="/petimages/{{this.fileName}}" width="200" height="200" >
+                                            {{#each images}}
+                  <img src="/petimages/{{this.fileName}}" width="200" height="200" >
+                {{/each}}
+
                         </div>
-                  
+
+                {{#each pet}}
                         <div class="petInfo">
                             <!-- pet1 info -->
                             <!-- needs to add this profile's 1st pet's info to page -->
