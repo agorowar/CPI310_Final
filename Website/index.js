@@ -273,7 +273,7 @@ app.get("/profile", async(req, res) => {
     const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
     const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.id);
-    const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",pets.id);
+    const petImages = await db.all("SELECT * FROM petImages");
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
