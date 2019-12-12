@@ -67,10 +67,9 @@
                     <span class="sr-only">Next</span>
                   </a>
                 </div>-->
-                {{#each images}}
-                <img src="/petimages/{{this.fileName}}" width="200" height="200" >
-                {{/each}}
-
+        
+            <div class = "gradient">
+              <div class = "container-fluid"></div>
                 <style>
                   .profile-image{
                       height: 400px;
@@ -80,16 +79,28 @@
                     float: left;
                   }
                 </style>
-
+            <div>
               <a href="new-pet">Add a new Pet</a>
               <br>
               <a href="petImage">Upload Pet Pictures</a>
+            </div>
+              
+            <div class = "row" id = "profile_container">
+              <div class = "col-lg-2"></div>
+              <div class = "col-lg-3">
+                {{#each images}}
+                  <img src="/petimages/{{this.fileName}}" width="200" height="200" >
+                {{/each}}
+              </div>
+            <div class = "col-lg-1"></div>
+              <div class = "col-lg-6" id = "pet_bio">
               {{#each pets}}
-              <h1>Pet Name: {{this.petname}}</h1>
-              <h1>Bio: </h1>
+              <h1 style = "margin-bottom: 20px">{{this.petname}}</h1>
+              <hr style = "border-radius: 5px; border-color: black">
+              <h2>Bio:</h2>
               <!--<p>Koda is full of energy when other dogs are around, and loves to jump on people when he gets excited. He is stinkman</p>-->
               <p>{{this.petbio}}</p>
-              <ul class="tagInfo">
+              <ul class="tagInfo" style = "font-weight: bold;">
                 <!--<li>Spayed/Neutered: Yes</li>
                 <li>Friendly with other pets?: Yes</li>
                 <li>Size: </li>
@@ -98,7 +109,9 @@
                 {{this.otherpetinfo}}
               </ul>
               {{/each}}
-
+              </div>
+            </div>
+      </div>
     </div>   
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
