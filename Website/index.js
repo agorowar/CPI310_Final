@@ -298,7 +298,6 @@ app.post("/ownerForm", async(req, res) => {
     if (error) {
         return res.render("ownerForm", { error: error });
     }
-    const userId = await db.get("SELECT * FROM users");
     await db.run("UPDATE users SET location=?, bio=? WHERE id=?",location,bio,req.user.id);
     res.redirect("profile");
 });
@@ -435,7 +434,7 @@ app.get("/matching", async(req, res) => {
     //Don't select users that the current user have already matched with in the matched table
     //Don't select users that the current user have arealdy matched with in the dislike table
     //xconst pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
-    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
+    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=? LIMIT 1",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
@@ -450,31 +449,7 @@ app.post("/likeMatching", async(req,res)=>{
     //else, create a potential match
     //Add to matched table only if both pets like eachother, otherwise delete potential match
     const userPet = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
-    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
-    /*if(await db.run(" SELECT * FROM matches WHERE EXISTS (SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) ",pet.id,userPet.id) == null)
-    {
-        await db.run("INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?",pet.id,userPet.id,pet.id,userPet.id)
-    }
-    else
-    {
-        await db.run("INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)",pet.id,userPet.id)
-    }*/
-    
-    /*await db.run(`
-    SELECT * FROM potMatch 
-    CASE 
-    WHEN EXISTS(SELECT * FROM potMatch WHERE initialPet=? AND matchedPet=?) THEN INSERT INTO matches (pet1,pet2) VALUES (?,?), DELETE FROM potMatch WHERE initialPet = ? AND matchedPET = ?
-    ELSE INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)              
-    END;`,
-    pet.id,
-    userPet.id,
-    pet.id,
-    userPet.id,
-    pet.id,
-    userPet.id,
-    userPet.id,
-    pet.id
-    );*/
+    const pet = await db.get("SELECT * FROM pets WHERE petOwner!=? LIMIT 1",req.user.id);
     const test = await db.get("SELECT initialPet, matchedPet FROM potMatch WHERE initialPet=? AND matchedPet=?",
     pet.id,
     userPet.id
