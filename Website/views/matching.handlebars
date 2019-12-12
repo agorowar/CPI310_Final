@@ -1,87 +1,98 @@
 <DOCTYPE !HTML>
     <html>
-        <head>
-            <!-- add bootstrap, css and fonts to head -->
-            <link rel="stylesheet" type="text/css" href="/style.css">
 
-            <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            
+    <head>
+        <!-- add bootstrap, css and fonts to head -->
+        <link rel="stylesheet" type="text/css" href="/style.css">
 
-            <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
+        <!-- bootstrap css file. needed for bootstrap.  the design features in bootsrap are all just classes that get controlled in a css file-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            
-        </head>
 
-        <body>
-            <script type="text/javascript" src="/testMatch.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
 
-            <!-- add navbar to the top of the body -->
-                <nav class="navbar navbar-expand-lg navbar-light" style = "background-color: #63A779; font-family: 'Alata', sans-serif;">
-                <a class="navbar-brand" href="/">Paw Me Maybe</a> <!--title on the navbar that also functions as a link to the homepage -->
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-                <!-- <span class="navbar-toggler-icon"></span> -->
-            
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    </head>
+
+    <body>
+        <script type="text/javascript" src="/testMatch.js"></script>
+
+        <!-- add navbar to the top of the body -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #63A779; font-family: 'Alata', sans-serif;">
+            <a class="navbar-brand" href="/">Paw Me Maybe</a>
+            <!--title on the navbar that also functions as a link to the homepage -->
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+            <!-- <span class="navbar-toggler-icon"></span> -->
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <a class="navbar-brand" href="/">
                         <img src="redAsset.png" width="30" height="30" alt="">
                     </a>
                     <li class="nav-item">
-                    <a class="nav-link" href="profile">Your Profile</a> 
+                        <a class="nav-link" href="profile">Your Profile</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="petProfile">Your Pets</a> 
+                        <a class="nav-link" href="petProfile">Your Pets</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="matching">Match with Pets</a> 
+                        <a class="nav-link" href="matching">Match with Pets</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="logout">Logout</a>
+                        <a class="nav-link" href="logout">Logout</a>
                     </li>
                 </ul>
-                </div>
-            </nav>
-        <div id ="matching_gradient">
-            <div class = "top"> <!-- header -->
+            </div>
+        </nav>
+            <div class="top">
+                <!-- header -->
                 <h1>Matching Feed</h1>
             </div>
 
-            <div class = "feed" id = "feed">   <!-- feed -->
+            <div class="feed" id="feed">
+                <!-- feed -->
                 <!-- container 1 -->
                 {{#each pet}}
-                <div class = "container">
-                    <div class = "petContainer"> <!-- pets container -->
-                        <div class = "petPic"> <!-- pet1 pic -->
+                <div class="container">
+                    <div class="petContainer">
+                        <!-- pets container -->
+                        <div class="petPic">
+                            <!-- pet1 pic -->
                             <!-- needs to add this profile's 1st pet's pic to page -->
-                            <img src= "/petimages/{{this.fileName}}">
+                            <img src="/petimages/{{this.fileName}}">
                         </div>
-    
-                        <div class = "petInfo"> <!-- pet1 info -->
+
+                        <div class="petInfo">
+                            <!-- pet1 info -->
                             <!-- needs to add this profile's 1st pet's info to page -->
                             <h4>Name:{{this.petname}}</h4>
                             <p>Bio:{{this.petbio}}</p>
                         </div>
                     </div>
-                
-                    <div class = "buttons"> <!-- buttons container -->
-                    <form action="/likeMatching" method="POST">
-                        <div class = "buttonContainer"> <!-- button1 -->
-                            <input type ="image" id="like" src = "greenAsset 3@3x.PNG" alt = "button" width = "48" height = "48">
-                            <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
-                        </div>
-                    </form>
-                    <form action="/dislikeMatching" method="POST"></form>
-                        <div class = "buttonContainer"> <!-- butoon2 -->
-                            <input type ="image" id="dislike" src = "redAsset.PNG" alt = "button" width = "48" height = "48">
+
+                    <div class="buttons">
+                        <!-- buttons container -->
+                        <form action="/likeMatching" method="POST">
+                            <div class="buttonContainer">
+                                <!-- button1 -->
+                                <input type="image" id="like" src="greenAsset 3@3x.PNG" alt="button" width="48" height="48">
+                                <!-- needs to add this profile to the user's liked list and then remove and add a new container with a new profile to bottom of page-->
+                            </div>
+                        </form>
+                        <form action="/dislikeMatching" method="POST"></form>
+                        <div class="buttonContainer">
+                            <!-- butoon2 -->
+                            <input type="image" id="dislike" src="redAsset.PNG" alt="button" width="48" height="48">
                             <!-- needs to remove container and then add new container with new profile at bottom of page -->
                         </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
                 {{/each}}
             </div>
-                
-                
-        </body>
+
+
+    </body>
+
     </html>
