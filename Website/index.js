@@ -226,7 +226,7 @@ app.post("/register", async(req, res) => {
         email,
         pwHash
     );
-    await db.run(
+    /*await db.run(
         "INSERT INTO users (name, email, location, bio) VALUES (?, ?, ?, ?);",
         "Napoleon Dynamite",
         "napolean@dynamite.com",
@@ -259,7 +259,7 @@ app.post("/register", async(req, res) => {
         "don",
         "spayed",
         "3"
-    );
+    );*/
     const user = await db.get("SELECT name,id FROM users WHERE email=?", email);
     const token = uuidv4();
     await db.run("INSERT INTO authToken (token, userID) VALUES (?,?)", token, user.id);
@@ -481,7 +481,7 @@ app.post("/likeMatching", async(req,res)=>{
     );
     if(test != null){
         await db.run("INSERT INTO matches (pet1,pet2) VALUES (?,?)",pet.id,userPet.id)
-        await db.run("DELETE FROm potMatch WHERE initalPet=? AND matchedPet=?",pet.id,userPet.id)
+        await db.run("DELETE FROM potMatch WHERE initialPet=? AND matchedPet=?",pet.id,userPet.id)
     }
     else{
         await db.run("INSERT INTO potMatch (initialPet,matchedPet) VALUES (?,?)",userPet.id,pet.id)
