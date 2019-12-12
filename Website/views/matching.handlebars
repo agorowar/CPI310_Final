@@ -49,7 +49,7 @@
                 <!-- header -->
                 <h1>Matching Feed</h1>
             </div>
-
+            {{#if pet}}
             <div class="feed" id="feed">
                 <!-- feed -->
                 <!-- container 1 -->
@@ -91,6 +91,9 @@
                 </div>
                 {{/each}}
             </div>
+            {{else}}
+            <h2>No pets available to match with</h2>
+            {{/if}}
 
 
     </body>
