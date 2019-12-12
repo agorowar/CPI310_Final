@@ -273,7 +273,7 @@ app.get("/profile", async(req, res) => {
     const token = req.cookies.authToken
     const images = await db.all("SELECT * FROM profileImages WHERE userId=?",req.user.id);
     const pets = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.id);
-    const petImages = await db.all("SELECT * FROM petImages");
+    const petImages = await db.all("SELECT * FROM petImages WHERE petId=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=profile")
     } else {
@@ -342,7 +342,7 @@ app.get("/petProfile", async(req, res) => {
     const db = await dbPromise;
     const token = req.cookies.authToken;
     const pet = await db.all("SELECT * FROM pets WHERE petOwner=?",req.user.id);
-    const images = await db.all("SELECT * FROM petImages");
+    const images = await db.all("SELECT * FROM petImages WHERE petId=?",req.user.id);
     if (!token) {
         res.redirect("/login?from=petProfile")
     } else {
@@ -381,7 +381,6 @@ app.post("/new-pet", async(req, res) => {
     if (error) {
         return res.render("new-pet", { error: error });
     }
-    //const petOwner = db.get("SELECT * FROM users WHERE id=?", user.id);
     await db.run(
         "INSERT INTO pets (petname, species, gender, age, petbio, otherpetinfo, petOwner) VALUES (?, ?, ?, ?, ?, ?,?)",
         petname, 
@@ -415,14 +414,15 @@ app.post("/petImage", async(req,res)=>{
             const fileName = req.file.filename;
             console.log("read fileNames: " + fileName);
             
-            const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
+            //const petId = await db.get("SELECT * FROM pets WHERE petOwner=?",req.user.id);
 
             //Delete Last File
             //Omit delete function to have multiple images displayed instead of one
             await db.run("DELETE FROM petImages WHERE petId = ?",petId.id);
         
             //insert filepath into database
-            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            //await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,petId.id);
+            await db.run("INSERT INTO petImages (fileName,petId) VALUES (?,?)",fileName,req.user.id);
             res.redirect("petProfile");
         }   
     });
@@ -435,10 +435,11 @@ app.get("/matching", async(req, res) => {
     //Don't select users that the current user have arealdy matched with in the dislike table
     //xconst pet = await db.get("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     const pet = await db.all("SELECT * FROM pets WHERE petOwner!=? LIMIT 1",req.user.id);
+    const images = await db.all("SELECT * FROM petImages WHERE petId!=? LIMIT 1",req.user.id);
     if (!token) {
         res.redirect("/login?from=matching")
     } else {
-        res.render("matching", {pet: pet});
+        res.render("matching", {pet: pet, images});
     }
 });
 
@@ -482,13 +483,12 @@ app.get("/userMatches", async(req,res)=>{
     const db = await dbPromise;
     const token = req.cookies.authToken;
     //const user = await db.all("SELECT * FROM users WHERE id!=?",req.user.id);
-    const pet = await db.all("SELECT * FROM pets WHERE petOwner!=?",req.user.id);
     // const pet = await db.all("SELECT * FROM pets");
     //Display available chats for the current user. Pull from all messaging tables the current user is in
     if (!token) {
         res.redirect("/login?from=userMatches")
     } else {
-        res.render("userMatches", {pet: pet});
+        res.render("userMatches", {pet1: pets1, pet2: pets2});
     }
 });
 

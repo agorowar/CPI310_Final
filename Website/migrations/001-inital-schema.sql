@@ -18,7 +18,7 @@ CREATE TABLE petImages
 (
     fileName STRING PRIMARY KEY,
     petId INTEGER,
-    FOREIGN KEY(petId) REFERENCES pets(id)
+    FOREIGN KEY(petId) REFERENCES users(id)
 );
 CREATE TABLE pets
 (
